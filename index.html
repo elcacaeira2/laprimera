@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LA PRIMERA | Tienda Online</title>
+  <link rel="icon" type="image/png" href="logo/favicon.png">
+  <link rel="apple-touch-icon" href="logo/favicon.png">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange-900: #8f3600;
+      --orange-800: #b94800;
+      --orange-700: #d65a00;
+      --orange-600: #f06f00;
+      --orange-500: #f58220;
+      --orange-300: #ffb066;
+      --orange-100: #fff0e2;
+      --yellow: #ffd36b;
+      --ink: #25211d;
+      --muted: #665d55;
+      --line: #e9aa67;
+      --surface: #ffffff;
+      --bg: #fffaf6;
+      --shadow: 0 14px 34px rgba(94, 48, 17, 0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Aptos", "Segoe UI", Arial, Helvetica, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.58; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    h1, h2 { font-family: Cambria, Georgia, "Times New Roman", serif; }
+    .container { width: min(1240px, calc(100% - 32px)); margin: 0 auto; }
+    .topbar { position: sticky; top: 0; z-index: 80; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(240, 176, 106, 0.7); }
+    .topbar-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { border: 0; background: transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 14px; min-width: 0; text-align: left; }
+    .brand img { width: 76px; height: 66px; object-fit: contain; display: block; flex: 0 0 auto; }
+    .brand-name { font-family: Cambria, Georgia, "Times New Roman", serif; color: #21150c; font-size: 1.48rem; line-height: 1; font-weight: 700; white-space: nowrap; }
+    .header-actions { display: flex; align-items: center; gap: 9px; flex-wrap: nowrap; justify-content: flex-end; }
+    .icon-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(185, 72, 0, 0.28); background: var(--orange-600); color: white; display: inline-grid; place-items: center; box-shadow: 0 7px 16px rgba(185, 72, 0, 0.18); transition: transform 0.18s, background 0.18s; }
+    .icon-btn:hover { transform: translateY(-2px); background: var(--orange-800); }
+    .icon-btn svg { width: 21px; height: 21px; fill: currentColor; }
+    .store-hero { background: white; border-bottom: 1px solid rgba(143, 54, 0, 0.18); overflow: hidden; }
+    .hero-shell { display: grid; grid-template-columns: minmax(420px, 0.95fr) minmax(0, 1.45fr); min-height: 302px; }
+    .hero-intro { display: flex; flex-direction: column; justify-content: center; padding: 34px clamp(24px, 4vw, 64px); background: linear-gradient(130deg, #fff2be 0%, #ffc55b 42%, #f58220 100%); border-right: 6px solid white; }
+    .eyebrow { display: inline-flex; align-items: center; width: fit-content; border-radius: 999px; background: var(--orange-900); color: white; font-size: 0.82rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 12px; margin-bottom: 12px; }
+    h1 { font-size: clamp(2.6rem, 4vw, 4.3rem); line-height: 0.98; letter-spacing: 0; color: #21150c; font-weight: 700; }
+    .hero-copy { color: #4b2b18; max-width: 620px; font-size: clamp(1rem, 1.7vw, 1.2rem); margin-top: 14px; font-weight: 650; }
+    .purchase-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: stretch; gap: 10px; background: white; padding: 14px; }
+    .process-card { position: relative; min-width: 0; display: grid; grid-template-rows: minmax(110px, 1fr) auto; overflow: hidden; border: 1px solid #f0bf8c; border-radius: 8px; background: #fffaf5; box-shadow: 0 8px 18px rgba(94, 48, 17, 0.08); }
+    .process-card img { width: 100%; height: 138px; object-fit: cover; display: block; background: white; }
+    .process-copy { min-height: 78px; padding: 10px; text-align: center; background: white; }
+    .process-title { display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--orange-800); font-size: clamp(0.82rem, 1vw, 0.98rem); line-height: 1.1; font-weight: 950; text-transform: uppercase; }
+    .process-number { width: 24px; height: 24px; flex: 0 0 24px; border-radius: 50%; display: grid; place-items: center; background: var(--orange-600); color: white; font-size: 0.85rem; }
+    .process-card:first-child .process-title { color: #153452; }
+    .process-text { color: var(--muted); font-size: 0.78rem; line-height: 1.28; font-weight: 800; margin-top: 5px; }
+    .service-step { position: relative; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 22px 14px; color: var(--ink); border-left: 1px solid #efc08e; }
+    .service-step.support { margin: 0 8px; border: 0; border-radius: 8px; background: #2f2a26; color: white; }
+    .service-step svg { width: 72px; height: 72px; padding: 14px; border-radius: 50%; background: #fff2e5; color: var(--orange-700); stroke: currentColor; stroke-width: 1.8; fill: none; }
+    .service-step.support svg { background: var(--orange-700); color: white; }
+    .step-title { display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--orange-800); font-size: clamp(0.86rem, 1.2vw, 1.05rem); font-weight: 950; text-transform: uppercase; }
+    .service-step.support .step-title { color: white; font-size: 1.15rem; }
+    .step-number { width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%; display: grid; place-items: center; background: var(--orange-600); color: white; font-size: 0.9rem; }
+    .step-copy { color: var(--muted); font-size: 0.85rem; line-height: 1.35; font-weight: 750; max-width: 190px; }
+    .service-step.support .step-copy { color: #fff0e2; }
+    .shipping-section { background: white; border-bottom: 1px solid rgba(240, 176, 106, 0.72); }
+    .shipping-grid { min-height: 198px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .shipping-offer { min-width: 0; display: grid; grid-template-columns: 210px minmax(0, 1fr); align-items: center; gap: 28px; padding: 24px 34px; }
+    .shipping-offer + .shipping-offer { border-left: 1px solid #f0bf8c; }
+    .delivery-image { width: 210px; height: 136px; display: block; object-fit: contain; }
+    .shipping-offer:first-child .shipping-copy { align-self: center; }
+    .shipping-copy strong { display: block; color: var(--orange-900); font-size: clamp(1.05rem, 1.7vw, 1.4rem); line-height: 1.25; }
+    .shipping-copy span { display: block; color: var(--muted); margin-top: 7px; font-weight: 700; }
+    .shipping-offer.agency-offer { grid-template-columns: 170px minmax(0, 1fr); gap: 46px; }
+    .agency-logos { width: 170px; display: grid; gap: 10px; align-items: center; }
+    .agency-logo { width: 100%; min-height: 58px; border: 1px solid #f0bf8c; border-radius: 6px; background: white; object-fit: contain; padding: 8px; display: block; }
+    .rubros-section { background: linear-gradient(180deg, #fff7ef 0%, #f5f8fd 22%, #eef4fb 100%); border-top: 1px solid #f3bd85; padding: 42px 0 30px; }
+    .rubros-kicker { color: #d71920; font-size: 0.9rem; font-weight: 950; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; }
+    .rubros-title { color: #081944; font-size: clamp(2.1rem, 5vw, 4.1rem); line-height: 0.98; font-weight: 950; margin-bottom: 30px; }
+    .rubros-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+    .rubro-card { position: relative; min-height: 190px; border: 1px solid #d6e2f1; border-radius: 8px; overflow: hidden; background: #e8f0fb; cursor: pointer; box-shadow: 0 10px 24px rgba(8, 25, 68, 0.08); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+    .rubro-card:hover { transform: translateY(-4px); border-color: var(--orange-500); box-shadow: 0 18px 32px rgba(8, 25, 68, 0.16); }
+    .rubro-card.active { border-color: var(--orange-700); box-shadow: inset 0 0 0 3px rgba(245, 130, 32, 0.28), 0 18px 32px rgba(8, 25, 68, 0.14); }
+    .rubro-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .rubro-card.no-image { background: #e8f0fb; }
+    .rubro-card.no-image::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(216,228,244,0.55)); }
+    .rubro-name { position: absolute; left: 0; right: 0; bottom: 0; min-height: 54px; display: grid; place-items: center; padding: 10px 12px; color: white; text-align: center; font-size: 0.93rem; line-height: 1.08; font-weight: 950; text-transform: uppercase; text-shadow: 0 2px 8px rgba(0,0,0,0.45); background: linear-gradient(180deg, rgba(8,25,68,0), rgba(8,25,68,0.84)); }
+    .rubro-count { position: absolute; top: 10px; right: 10px; min-width: 34px; height: 28px; display: grid; place-items: center; padding: 0 9px; border-radius: 999px; color: white; background: var(--orange-700); font-size: 0.78rem; font-weight: 950; box-shadow: 0 8px 18px rgba(121, 44, 0, 0.22); }
+    .stock-note { color: var(--muted); font-weight: 750; }
+    .input, .select, .textarea { width: 100%; border: 1px solid rgba(240, 176, 106, 0.78); border-radius: 8px; background: white; color: var(--ink); padding: 12px 14px; outline: none; }
+    .input:focus, .select:focus, .textarea:focus { border-color: var(--orange-500); box-shadow: 0 0 0 4px rgba(245, 130, 32, 0.14); }
+    .btn { border: 0; border-radius: 8px; min-height: 48px; padding: 12px 20px; font-weight: 900; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.18s, box-shadow 0.18s, background 0.18s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 24px rgba(143, 54, 0, 0.2); }
+    .btn-orange { background: linear-gradient(135deg, var(--orange-600), var(--orange-800)); color: white; }
+    .btn-soft { background: white; color: var(--orange-900); border: 1px solid rgba(245, 130, 32, 0.35); }
+    .store-section { padding: 26px 0 64px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #f0c79d; }
+    .section-head h2 { font-size: clamp(1.65rem, 2.7vw, 2.35rem); color: #21150c; margin-bottom: 4px; }
+    h2 { font-size: clamp(1.85rem, 3vw, 2.75rem); line-height: 1.1; font-weight: 700; }
+    .result-count { color: var(--orange-900); font-weight: 900; }
+    .product-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+    .product-card { position: relative; min-height: 238px; border: 1px solid #d6e2f1; border-radius: 8px; overflow: hidden; background: #edf4ff; box-shadow: 0 10px 24px rgba(8, 25, 68, 0.08); cursor: pointer; transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s; }
+    .product-card:hover { transform: translateY(-4px); border-color: var(--orange-500); box-shadow: 0 18px 32px rgba(8, 25, 68, 0.16); }
+    .product-image { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(135deg, #fff7f0, #ffd9a3); overflow: hidden; }
+    .product-image img { width: 100%; height: 100%; object-fit: contain; padding: 16px 14px 62px; background: white; display: block; }
+    .product-image .fallback { position: absolute; inset: 0; display: none; place-items: center; color: white; background: linear-gradient(135deg, var(--orange-700), var(--orange-300)); font-size: 2.25rem; font-weight: 950; padding-bottom: 54px; }
+    .product-image.missing img { display: none; }
+    .product-image.missing .fallback { display: grid; }
+    .product-name { position: absolute; left: 0; right: 0; bottom: 0; min-height: 62px; display: grid; place-items: center; padding: 10px 12px; color: white; text-align: center; font-size: 0.89rem; line-height: 1.08; font-weight: 950; text-transform: uppercase; text-shadow: 0 2px 8px rgba(0,0,0,0.48); background: linear-gradient(180deg, rgba(8,25,68,0), rgba(8,25,68,0.88)); }
+    .product-info { padding: 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { background: #fff0e2; color: var(--orange-900); border-radius: 4px; padding: 5px 8px; font-size: 0.76rem; font-weight: 900; }
+    .product-title { font-family: Cambria, Georgia, "Times New Roman", serif; font-size: 1.08rem; line-height: 1.25; font-weight: 700; color: var(--ink); min-height: 52px; }
+    .product-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.45; min-height: 44px; }
+    .price-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: auto; }
+    .price-box { border: 1px solid rgba(240, 176, 106, 0.76); background: #fff8f2; border-radius: 6px; padding: 9px; }
+    .price-box span { display: block; color: var(--muted); font-size: 0.74rem; font-weight: 850; }
+    .price-box strong { color: var(--orange-800); font-size: 1rem; }
+    .page-view { display: none; }
+    .page-view.active { display: block; animation: fade 0.22s ease; }
+    @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .detail-wrap { padding: 28px 0 58px; }
+    .back-link { margin-bottom: 16px; }
+    .detail-card { background: white; border: 1px solid rgba(240, 176, 106, 0.78); border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; display: grid; grid-template-columns: minmax(320px, 0.85fr) minmax(0, 1.15fr); }
+    .detail-media { min-height: 500px; background: linear-gradient(135deg, #fff7f0, #ffb066); display: grid; place-items: center; }
+    .detail-media img { width: 100%; height: 100%; max-height: 560px; object-fit: contain; padding: 26px; background: white; }
+    .detail-media.missing img { display: none; }
+    .detail-media .fallback { display: none; color: white; font-size: 4rem; font-weight: 950; }
+    .detail-media.missing .fallback { display: block; }
+    .detail-content { padding: clamp(22px, 4vw, 40px); }
+    .detail-content h2 { margin: 8px 0 14px; }
+    .spec-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 20px 0; }
+    .spec { border: 1px solid rgba(240, 176, 106, 0.78); border-radius: 6px; padding: 13px; background: #fff9f4; }
+    .spec span { display: block; color: var(--muted); font-size: 0.8rem; font-weight: 900; }
+    .spec strong { color: var(--ink); font-size: 1.05rem; }
+    .technical-sheet { margin-top: 26px; padding-top: 22px; border-top: 1px solid rgba(240, 176, 106, 0.72); }
+    .technical-sheet h3 { font-family: Cambria, Georgia, "Times New Roman", serif; font-size: 1.35rem; margin-bottom: 12px; color: var(--ink); }
+    .technical-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 22px; }
+    .technical-item { display: grid; grid-template-columns: minmax(105px, 0.42fr) minmax(0, 1fr); gap: 10px; padding: 11px 0; border-bottom: 1px solid #f2d2b3; }
+    .technical-item dt { color: var(--orange-900); font-size: 0.82rem; font-weight: 900; }
+    .technical-item dd { color: var(--ink); font-size: 0.9rem; overflow-wrap: anywhere; }
+    .checkout-layout { display: grid; grid-template-columns: minmax(0, 1.12fr) 380px; gap: 20px; padding: 28px 0 58px; }
+    .checkout-card, .summary-card { background: white; border: 1px solid rgba(240, 176, 106, 0.78); border-radius: 8px; box-shadow: 0 12px 28px rgba(94, 48, 17, 0.1); padding: 22px; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+    .full { grid-column: 1 / -1; }
+    .choice-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+    .choice { border: 2px solid rgba(240, 176, 106, 0.86); border-radius: 8px; padding: 14px; cursor: pointer; background: #fff9f4; font-weight: 900; }
+    .choice input { margin-right: 8px; }
+    .delivery-fields { display: none; }
+    .delivery-fields.active { display: grid; }
+    .payment-grid { display: grid; grid-template-columns: minmax(220px, 280px) minmax(0, 1fr); gap: 20px; align-items: start; margin-top: 16px; }
+    .qr { width: 100%; height: auto; max-height: 520px; border-radius: 8px; border: 1px solid rgba(240, 176, 106, 0.8); object-fit: contain; background: #0c1729; display: block; }
+    .bank-list { list-style: none; display: grid; gap: 8px; color: var(--muted); }
+    .bank-list b { color: var(--ink); }
+    .summary-item { display: grid; gap: 10px; }
+    .summary-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; background: #fff7f0; border-radius: 6px; border: 1px solid rgba(240, 176, 106, 0.78); padding: 12px; }
+    .summary-total { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(240, 176, 106, 0.7); display: grid; gap: 8px; }
+    .summary-total div { display: flex; justify-content: space-between; gap: 12px; }
+    .note { color: var(--muted); font-size: 0.92rem; margin-top: 10px; }
+    .floating-stack { position: fixed; right: clamp(16px, 3vw, 28px); bottom: clamp(18px, 4vw, 32px); z-index: 140; display: grid; gap: 12px; }
+    .floating-whatsapp { width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: white; display: grid; place-items: center; box-shadow: 0 12px 28px rgba(37, 211, 102, 0.34); animation: whatsappPulse 2.4s infinite; }
+    .floating-whatsapp.alt { background: #1fb45a; animation-delay: 0.35s; }
+    .floating-whatsapp svg { width: 30px; height: 30px; fill: currentColor; display: block; }
+    .site-footer { background: #fff7ef; border-top: 1px solid #f0bf8c; padding: 30px 0 110px; }
+    .footer-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 22px; }
+    .company-foot { display: grid; gap: 5px; color: var(--muted); }
+    .company-foot strong { color: var(--ink); font-size: 1.15rem; }
+    .company-foot b { color: var(--ink); }
+    .visit-counter { color: var(--orange-900); font-weight: 850; }
+    .claims-link { border: 0; background: white; border-radius: 8px; padding: 10px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 12px; box-shadow: 0 10px 24px rgba(94, 48, 17, 0.08); color: #074f8b; font-weight: 950; }
+    .claims-link img { width: 116px; height: 74px; object-fit: contain; display: block; }
+    .claim-wrap { padding: 28px 0 58px; }
+    .claim-card { background: white; border: 1px solid rgba(240, 176, 106, 0.78); border-radius: 8px; box-shadow: var(--shadow); padding: clamp(22px, 4vw, 40px); }
+    .claim-card h2 { margin-bottom: 8px; }
+    /* Franja informativa y pagos */
+    .store-hero { background: #f58220; }
+    .hero-shell { grid-template-columns: minmax(300px, .78fr) minmax(0, 1.72fr); min-height: 0; }
+    .hero-intro { padding: 28px clamp(20px, 3.5vw, 52px); background: linear-gradient(130deg, #ffc55b 0%, #f58220 72%); border-right: 1px solid rgba(255,255,255,.45); }
+    .purchase-steps { background: transparent; padding: 14px; }
+    .process-card { border-color: rgba(255,255,255,.65); box-shadow: 0 8px 18px rgba(94,48,17,.16); }
+    .process-card img { height: 104px; }
+    .process-copy { min-height: 72px; }
+    .shipping-section { background: #f58220; border: 0; }
+    .shipping-grid { min-height: 0; max-width: 900px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .shipping-offer, .shipping-offer.agency-offer { grid-template-columns: 76px minmax(0, 1fr); gap: 12px; padding: 13px 18px; }
+    .shipping-offer + .shipping-offer { border-left-color: rgba(255,255,255,.45); }
+    .delivery-image { width: 76px; height: 58px; }
+    .agency-logos { width: 76px; grid-template-columns: 1fr; gap: 4px; }
+    .agency-logo { min-height: 26px; padding: 3px; }
+    .shipping-copy strong { color: #fff; font-size: clamp(.78rem, 1.15vw, .96rem); line-height: 1.15; }
+    .shipping-copy span { color: #fff5e9; margin-top: 3px; font-size: .72rem; line-height: 1.25; }
+    .rubros-section { padding: 24px 0 30px; border-top: 0; }
+    .rubros-title { display: none; }
+    .rubros-kicker { margin: 0 0 20px; padding-bottom: 12px; border-bottom: 1px solid #f0bf8c; color: #081944; }
+    .product-card { min-height: 292px; display: flex; flex-direction: column; cursor: pointer; }
+    .product-image { position: relative; height: 192px; flex: 0 0 192px; }
+    .product-image img { padding: 14px; }
+    .product-name { position: relative; min-height: 0; padding: 9px 10px 2px; background: white; color: var(--ink); text-shadow: none; font-size: .82rem; }
+    .product-card::after { content: attr(data-description); display: block; padding: 3px 11px 11px; color: var(--muted); background: white; font-size: .75rem; line-height: 1.25; text-align: center; }
+    .payment-details { margin: 18px 0 22px; padding: 16px; border: 1px solid rgba(240,176,106,.78); border-radius: 8px; background: #fff9f4; display: grid; grid-template-columns: 132px 1fr; gap: 16px; align-items: center; }
+    .payment-details img { width: 132px; max-height: 132px; object-fit: contain; background: white; border-radius: 6px; }
+    .payment-details p { margin: 0 0 5px; color: var(--muted); font-size: .9rem; }
+    .claim-sheet { border: 2px solid #7fb2e1; background: #f8fcff; padding: 18px; }
+    .claim-sheet h3 { margin: 0 0 12px; color: #074f8b; }
+    .claim-section-title { margin: 18px 0 8px; padding: 8px; background: #b9d8ef; color: #18334d; font-size: .88rem; font-weight: 900; }
+    .claim-card .note { margin-bottom: 12px; }
+    /* Ajustes de jerarquía visual solicitados */
+    .purchase-steps { gap: 8px; padding: 10px; }
+    .process-card { grid-template-rows: 72px auto; }
+    .process-card img { height: 72px; }
+    .process-copy { min-height: 57px; padding: 7px 6px; }
+    .process-title { gap: 4px; font-size: clamp(.66rem, .8vw, .78rem); }
+    .process-number { width: 18px; height: 18px; flex-basis: 18px; font-size: .68rem; }
+    .process-text { margin-top: 3px; font-size: .66rem; line-height: 1.18; }
+    .shipping-grid { max-width: 1020px; gap: 14px; padding: 16px; }
+    .shipping-offer, .shipping-offer.agency-offer { grid-template-columns: 94px minmax(0, 1fr); gap: 15px; padding: 17px; background: white; border: 0; border-radius: 9px; box-shadow: 0 8px 16px rgba(101, 42, 0, .18); }
+    .shipping-offer + .shipping-offer { border: 0; }
+    .delivery-image { width: 94px; height: 70px; }
+    .agency-logos { width: 94px; gap: 5px; }
+    .agency-logo { min-height: 30px; }
+    .shipping-copy strong { color: var(--orange-900); font-size: clamp(.95rem, 1.35vw, 1.15rem); }
+    .shipping-copy span { color: var(--muted); font-size: .8rem; }
+    .product-card::after { min-height: 32px; max-height: 32px; overflow: hidden; padding: 4px 10px 8px; font-size: .74rem; line-height: 1.2; }
+    .product-card[data-description=""]::after { display: none; }
+    .signature-input { padding: 11px; background: white; border: 1px dashed #6298c7; border-radius: 8px; }
+    .claim-solution { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 10px; }
+    .claim-solution textarea { min-height: 100px; }
+    @media (max-width: 760px) {
+      .shipping-grid { gap: 10px; padding: 12px; }
+      .shipping-offer, .shipping-offer.agency-offer { grid-template-columns: 82px minmax(0, 1fr); }
+      .delivery-image, .agency-logos { width: 82px; }
+      .claim-solution { grid-template-columns: 1fr; }
+    }
+    /* Imágenes y proceso sin tarjetas */
+    .purchase-steps { display: block; padding: 16px 20px 12px; background: transparent; }
+    .process-text-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; padding-top: 12px; color: #fff; }
+    .process-text-row div { text-align: center; padding: 0 7px; border-right: 1px solid rgba(255,255,255,.35); }
+    .process-text-row div:last-child { border-right: 0; }
+    .process-text-row img { width: 100%; height: 108px; display: block; object-fit: cover; border-radius: 7px; margin-bottom: 9px; background: rgba(255,255,255,.18); }
+    .process-text-row b { display: block; font-size: clamp(.88rem, 1.15vw, 1.08rem); text-transform: uppercase; }
+    .process-text-row span { display: block; margin-top: 5px; color: #fff3e4; font-size: clamp(.76rem, .9vw, .88rem); line-height: 1.28; }
+    .shipping-section { background: linear-gradient(130deg, #ffc55b 0%, #f58220 58%, #df650d 100%); }
+    .shipping-grid { max-width: 1160px; padding: 22px; gap: 18px; }
+    .shipping-offer, .shipping-offer.agency-offer { grid-template-columns: 140px minmax(0, 1fr); gap: 22px; padding: 23px; }
+    .delivery-image { width: 140px; height: 108px; }
+    .agency-logos { width: 140px; gap: 8px; }
+    .agency-logo { min-height: 44px; }
+    .shipping-copy strong { font-size: clamp(1.15rem, 1.75vw, 1.55rem); line-height: 1.15; }
+    .shipping-copy span { margin-top: 7px; font-size: clamp(.86rem, 1.1vw, 1rem); line-height: 1.32; }
+    @media (max-width: 760px) {
+      .process-text-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .process-text-row img { height: 142px; }
+      .process-text-row div:nth-child(2) { border-right: 0; }
+      .process-text-row div:nth-child(-n+2) { padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.35); }
+      .shipping-offer, .shipping-offer.agency-offer { grid-template-columns: 100px minmax(0, 1fr); gap: 14px; padding: 17px; }
+      .delivery-image, .agency-logos { width: 100px; }
+      .delivery-image { height: 82px; }
+    }
+    .rubros-kicker { color: #21150c; font-size: clamp(1.65rem, 2.7vw, 2.35rem); line-height: 1.1; font-weight: 700; letter-spacing: 0; text-transform: none; }
+    .process-text-row img { height: 158px; }
+    /* Una sola franja informativa */
+    .store-hero, .shipping-section { background: linear-gradient(130deg, #ffc55b 0%, #f58220 58%, #df650d 100%); }
+    .store-hero { border-bottom: 0; }
+    .shipping-section { border-top: 0; }
+    .hero-intro { background: transparent; border-right-color: rgba(255,255,255,.35); }
+    .shipping-grid { padding-top: 4px; }
+    /* Cabecera integrada en la franja naranja */
+    .topbar { display: none; }
+    .hero-logo { width: 102px; height: 88px; object-fit: contain; margin-bottom: 12px; }
+    .hero-social { display: flex; gap: 10px; margin-top: 20px; }
+    .hero-social .icon-btn { background: white; color: var(--orange-700); border-color: rgba(255,255,255,.8); box-shadow: 0 7px 16px rgba(111,47,0,.2); }
+    .hero-social .icon-btn:hover { background: #fff0df; color: var(--orange-900); }
+    /* La cabecera, los pasos y las opciones de entrega forman una sola franja. */
+    .store-hero .shipping-section { background: transparent; border: 0; }
+    .store-hero .shipping-grid { padding-bottom: 22px; }
+    .hero-shell { grid-template-columns: minmax(250px, .52fr) minmax(0, 2.48fr); }
+    .hero-intro { padding-inline: clamp(18px, 2.2vw, 34px); }
+    .purchase-steps { display: grid; place-items: stretch; padding: 0; }
+    .purchase-banner { width: 100%; height: 100%; min-height: 100%; display: block; object-fit: fill; }
+    .product-card, .product-image, .product-image img { background: #fff; }
+    .product-name { font-size: clamp(.98rem, 1.1vw, 1.1rem); line-height: 1.16; padding: 11px 12px 4px; }
+    .product-card::after { min-height: 42px; max-height: 42px; padding: 5px 12px 10px; font-size: clamp(.84rem, .95vw, .96rem); line-height: 1.28; }
+    /* Rubros como botones de texto */
+    .rubros-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+    .rubro-card.rubro-button { min-height: 52px; display: flex; align-items: center; justify-content: center; padding: 11px 14px; border: 1px solid #d6e2f1; border-radius: 7px; background: white; }
+    .rubro-card.rubro-button::before { display: none; }
+    .rubro-card.rubro-button .rubro-name { position: static; min-height: 0; padding: 0; display: block; color: #081944; background: transparent; text-shadow: none; font-size: .84rem; }
+    .rubro-card.rubro-button:hover .rubro-name, .rubro-card.rubro-button.active .rubro-name { color: var(--orange-800); }
+    @media (max-width: 760px) {
+      .hero-shell { grid-template-columns: 1fr; }
+      .hero-intro { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.45); }
+      .shipping-grid { grid-template-columns: 1fr; }
+      .shipping-offer + .shipping-offer { border-left: 0; border-top: 1px solid rgba(255,255,255,.45); }
+      .payment-details { grid-template-columns: 1fr; }
+      .payment-details img { width: 150px; }
+    }
+    .cookie-banner { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 180; display: none; align-items: center; justify-content: space-between; gap: 16px; background: #21150c; color: white; border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 14px 16px; box-shadow: 0 18px 44px rgba(0,0,0,0.28); }
+    .cookie-banner.active { display: flex; }
+    .cookie-banner p { margin: 0; font-size: 0.92rem; line-height: 1.45; }
+    .cookie-banner a { color: #ffd36b; text-decoration: underline; text-underline-offset: 3px; }
+    .cookie-banner .btn { flex: 0 0 auto; min-height: 42px; padding: 10px 18px; }
+    @keyframes whatsappPulse { 0%, 100% { transform: scale(1); } 18% { transform: scale(1.08); } 36% { transform: scale(1); } }
+    @media (max-width: 1040px) {
+      .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .detail-card, .checkout-layout { grid-template-columns: 1fr; }
+      .detail-media { min-height: 360px; }
+      .hero-shell { grid-template-columns: 1fr; }
+      .hero-intro { min-height: 250px; border-right: 0; border-bottom: 6px solid white; }
+      .purchase-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 12px; }
+      .shipping-offer, .shipping-offer.agency-offer { grid-template-columns: 150px minmax(0, 1fr); gap: 24px; padding: 20px 18px; }
+      .delivery-image, .agency-logos { width: 150px; }
+      .delivery-image { height: 110px; }
+    }
+    @media (max-width: 760px) {
+      .topbar-inner { min-height: 70px; padding: 6px 0; }
+      .brand { gap: 9px; }
+      .brand img { width: 58px; height: 54px; }
+      .brand-name { font-size: 1.2rem; }
+      .form-grid, .choice-row, .payment-grid { grid-template-columns: 1fr; }
+      .purchase-steps { min-height: auto; }
+      .service-step:nth-child(3) { border-left: 0; border-top: 1px solid #efc08e; }
+      .service-step:nth-child(4) { border-top: 1px solid #efc08e; }
+      .technical-list { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .product-image { height: 160px; }
+      .shipping-grid { grid-template-columns: 1fr; }
+      .shipping-offer + .shipping-offer { border-left: 0; border-top: 1px solid #f0bf8c; }
+      .cookie-banner { align-items: stretch; flex-direction: column; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .rubros-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+      .rubro-card { min-height: 150px; }
+    }
+    @media (max-width: 520px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .header-actions { justify-content: flex-end; }
+      .shipping-offer, .shipping-offer.agency-offer { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+      .purchase-steps { grid-template-columns: 1fr; }
+      .rubros-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .rubros-title { font-size: 2.15rem; }
+    }
+    /* El banner siempre ocupa toda la columna, incluso en pantallas medianas. */
+    .purchase-steps { width: 100%; grid-template-columns: minmax(0, 1fr) !important; place-items: center; padding: 0 !important; }
+    .purchase-banner { grid-column: 1 / -1; width: 100%; height: clamp(190px, 23vw, 230px); min-height: 0; object-fit: contain; }
+    @media (min-width: 761px) {
+      .hero-shell { grid-template-columns: 32% 68% !important; }
+      .purchase-banner { height: clamp(470px, 32vw, 620px); object-fit: fill; }
+    }
+    @media (max-width: 760px) {
+      .hero-intro { min-height: 0 !important; padding: 18px 24px !important; }
+      .hero-logo { width: 70px; height: 60px; margin-bottom: 5px; }
+      h1 { font-size: 2.35rem; }
+      .hero-copy { margin-top: 7px; font-size: 0.96rem; line-height: 1.35; }
+      .hero-social { margin-top: 12px; }
+      .purchase-banner { height: 300px; object-fit: contain; }
+      .shipping-grid { padding: 8px; }
+      .shipping-offer, .shipping-offer.agency-offer { padding: 12px; }
+      .rubros-section { padding-top: 18px; }
+      .store-section { padding-top: 18px; }
+    }
+    /* Ajustes finales de presentación */
+    .brand-panel { margin: 18px; padding: 22px !important; border: 1px solid rgba(255,255,255,.7); border-radius: 18px; background: rgba(255,248,237,.9) !important; box-shadow: 0 12px 28px rgba(91,42,11,.18); }
+    .brand-visuals { display: flex; align-items: center; justify-content: center; }
+    .brand-panel .hero-logo { width: 178px; height: 148px; margin: 0; object-fit: contain; }
+    .brand-panel .hero-copy { margin-bottom: 0; }
+    .brand-panel .hero-support-icon { width: 112px; height: 112px; object-fit: contain; margin-left: 8px; }
+    .brand-panel .hero-social { width: 100%; justify-content: center; align-items: center; margin-top: 0; }
+    .brand-panel h1 { margin-top: 12px; font-size: clamp(2rem, 2.9vw, 3rem); }
+    .brand-panel .hero-copy { margin-top: 9px; }
+    .shipping-grid { max-width: 840px; min-height: 0; padding: 12px 22px 24px; gap: 18px; }
+    .shipping-offer, .shipping-offer.agency-offer { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; min-height: 270px; padding: 18px; text-align: center; border: 0 !important; border-radius: 14px; background: #fff; box-shadow: 0 10px 20px rgba(89,43,14,.2); }
+    .delivery-image { width: 280px; height: 205px; }
+    .agency-logos { width: 200px; display: block; }
+    .agency-logo { width: 200px; min-height: 112px; object-fit: contain; }
+    .shipping-copy { display: grid; gap: 4px; }
+    .shipping-copy strong { color: #081944; font-size: 1.42rem; }
+    .shipping-copy span { color: #4b2b18; font-size: 1.3rem; font-weight: 800; }
+    .shipping-offer:first-child .shipping-copy span { color: #081944; }
+    .detail-media, .detail-media img, .summary-item img { background: #fff !important; }
+    .rubro-card.rubro-button { min-height: 42px; background: #d71920; border-color: #b51017; box-shadow: 0 6px 12px rgba(128,16,21,.2); }
+    .rubro-card.rubro-button:hover, .rubro-card.rubro-button.active { background: #ad1017; border-color: #8d0c12; box-shadow: inset 0 0 0 3px rgba(255,255,255,.28), 0 12px 22px rgba(128,16,21,.27); }
+    .rubro-card.rubro-button .rubro-name { color: #fff; text-shadow: none; }
+    .payment-grid { grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); }
+    .qr-stack { display: grid; gap: 12px; }
+    .payment-details .qr-stack { width: min(100%, 380px); }
+    .payment-details .qr { width: 100%; }
+    .payment-details .plin-contact { width: 100%; }
+    .qr-trigger { padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+    .qr { max-height: 650px; background: #fff; }
+    .plin-contact { width: 100%; max-width: 300px; justify-self: center; border-radius: 12px; object-fit: contain; }
+    .summary-item img { min-height: 330px; aspect-ratio: auto; background: #fff; padding: 3px; }
+    .qr-modal { position: fixed; inset: 0; z-index: 1000; display: none; place-items: center; padding: 24px; background: rgba(6,14,34,.76); }
+    .qr-modal.active { display: grid; }
+    .qr-modal-content { position: relative; width: min(92vw, 680px); padding: 18px; border-radius: 16px; background: #fff; }
+    .qr-modal-content img { display: block; width: 100%; max-height: 84vh; object-fit: contain; }
+    .qr-close { position: absolute; top: -13px; right: -13px; width: 38px; height: 38px; border: 0; border-radius: 50%; color: #fff; background: #d71920; font-size: 1.5rem; cursor: pointer; }
+    @media (max-width: 760px) {
+      .brand-panel { margin: 12px; padding: 16px !important; }
+      .brand-panel .hero-logo { width: 132px; height: 110px; }
+      .brand-panel .hero-support-icon { width: 84px; height: 84px; margin-left: 7px; }
+      .brand-panel h1 { margin-top: 8px; font-size: 1.9rem; }
+      .shipping-grid { padding: 10px 18px 18px; }
+      .shipping-offer, .shipping-offer.agency-offer { min-height: 0; padding: 16px; }
+      .delivery-image { width: 215px; height: 160px; }
+      .agency-logos, .agency-logo { width: 165px; }
+      .agency-logo { min-height: 92px; }
+      .payment-grid { grid-template-columns: 1fr; }
+      .qr { max-height: none; }
+      .summary-item img { min-height: 260px; }
+    }
+    @media (min-width: 761px) {
+      .store-hero { display: grid; grid-template-columns: minmax(260px, .8fr) minmax(0, 2.2fr); align-items: stretch; }
+      .store-hero .hero-shell, .store-hero .shipping-section, .store-hero .shipping-grid { display: contents; }
+      .store-hero { min-height: 260px; }
+      .brand-panel { height: 260px; min-height: 260px; margin: 10px 6px; padding: 13px !important; }
+      .brand-panel .hero-logo { width: 132px; height: 108px; }
+      .brand-panel h1 { margin-top: 7px; font-size: clamp(1.65rem, 2vw, 2.2rem); }
+      .brand-panel .hero-copy { font-size: .94rem; line-height: 1.28; }
+      .brand-panel .hero-support-icon { width: 70px; height: 70px; }
+      .purchase-steps { min-height: 0; padding: 12px; }
+      .purchase-steps { width: 86%; height: 320px; justify-self: center; }
+      .purchase-banner { height: 320px !important; min-height: 320px; object-fit: fill; }
+      .shipping-offer, .shipping-offer.agency-offer { min-height: 320px; margin: 12px 8px 12px 0; padding: 14px 10px; }
+      .delivery-image { width: 175px; height: 132px; }
+      .agency-logos, .agency-logo { width: 165px; }
+      .agency-logo { min-height: 95px; }
+      .shipping-copy strong { font-size: 1.13rem; }
+      .shipping-copy span { font-size: 1rem; }
+    }
+    .store-hero .shipping-section { display: none !important; }
+    .brand-panel h1 { text-align: center; }
+    .step-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-width: 0; padding: 16px; border: 1px solid rgba(255,255,255,.7); border-radius: 18px; background: rgba(255,248,237,.9); box-shadow: 0 12px 28px rgba(91,42,11,.18); text-align: center; }
+    .step-panel img { width: 105px; height: 105px; object-fit: contain; }
+    .step-panel h3 { color: #21150c; font-size: 1.05rem; line-height: 1.1; }
+    .step-panel p { color: #4b2b18; font-size: .9rem; line-height: 1.28; }
+    @media (min-width: 761px) {
+      .store-hero { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .purchase-steps { width: auto; height: auto; padding: 0; display: contents !important; }
+      .brand-panel { height: 376px; min-height: 376px; }
+      .step-panel { width: 280px; height: 376px; justify-self: center; align-self: center; margin: 10px 0; padding: 0; overflow: hidden; background: #fff; border-color: rgba(255,255,255,.82); }
+      .step-panel:nth-child(2) { width: 295px; }
+      .step-panel:nth-child(4) { width: 304px; }
+      .step-panel img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+    }
+    @media (max-width: 760px) {
+      .purchase-steps { display: grid !important; grid-template-columns: 1fr; gap: 10px; padding: 12px; }
+      .step-panel { min-height: 190px; }
+    }
+    .rubro-card.rubro-button { display: grid; place-items: center; }
+    .rubro-icon { width: 34px; height: 34px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .category-vector { width: 25px; height: 25px; filter: brightness(0) invert(1); }
+    .rubros-grid { display: flex; flex-wrap: nowrap; gap: 4px; }
+    .rubros-grid .rubro-card.rubro-button { flex: 1 1 0; min-width: 0; min-height: 36px; }
+    /* Categorías: solo íconos clicables, sin tarjetas ni colores de botón. */
+    .rubros-section { padding: 20px 0 !important; }
+    .rubro-card.rubro-button,
+    .rubros-grid .rubro-card.rubro-button {
+      appearance: none;
+      min-height: 0;
+      height: 38px;
+      padding: 0;
+      border: 0 !important;
+      border-radius: 0;
+      background: transparent !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+    .rubro-card.rubro-button:hover { border: 0 !important; box-shadow: none !important; }
+    .rubro-card.rubro-button.active { border: 0 !important; box-shadow: none !important; opacity: .5; }
+    .rubro-card.rubro-button .category-vector {
+      width: 40px !important;
+      height: 40px !important;
+      max-width: 40px !important;
+      max-height: 40px !important;
+      display: block;
+      object-fit: contain;
+      filter: none !important;
+      mix-blend-mode: multiply;
+    }
+    /* Las fotos de catálogo ocupan más espacio dentro de cada tarjeta. */
+    .product-image { height: 225px; flex-basis: 225px; }
+    .product-image img { padding: 2px !important; image-rendering: auto; }
+    .dryer-card .product-image img { padding: 28px !important; }
+    .detail-media.dryer-detail img { width: 72%; height: 72%; max-height: 400px; padding: 12px; }
+    .variant-options { margin: 12px 0; padding: 12px; border: 1px solid #f0bf8c; border-radius: 8px; background: #fff8ef; }
+    .variant-options strong { display: block; margin-bottom: 8px; color: #21150c; }
+    .variant-options > div { display: flex; flex-wrap: wrap; gap: 8px; }
+    .variant-option { border: 1px solid var(--orange-600); border-radius: 999px; background: #fff; color: var(--orange-800); padding: 7px 11px; font-weight: 800; cursor: pointer; }
+    .variant-option.active { background: var(--orange-600); color: #fff; }
+    @media (max-width: 760px) {
+      .product-image { height: 190px; flex-basis: 190px; }
+    }
+    .brand-panel .hero-copy { width: 100%; text-align: center; align-self: center; margin-bottom: 18px; }
+    .brand-panel .hero-social { margin-top: 0; }
+    @media (min-width: 761px) { .rubros-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; } }
+
+    /* Compatibilidad y nitidez visual en iPhone y Android. */
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+    button, input, select, textarea { font: inherit; }
+    button, .product-card, .rubro-button, .variant-option { touch-action: manipulation; }
+    .product-image img, .detail-media img, .summary-item img {
+      image-rendering: auto;
+      object-position: center;
+    }
+    @media (max-width: 760px) {
+      .container { width: min(100% - 24px, 1240px); }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px; }
+      .product-card { min-width: 0; min-height: 0; }
+      .product-image { height: 168px !important; flex-basis: 168px !important; }
+      .product-image img { padding: 6px !important; }
+      .dryer-card .product-image img { padding: 24px !important; }
+      .product-name { font-size: .78rem; overflow-wrap: anywhere; }
+      .product-card::after { font-size: .72rem; overflow-wrap: anywhere; }
+      .detail-card { grid-template-columns: minmax(0, 1fr); }
+      .detail-media { min-height: 300px; }
+      .detail-media img { max-height: 360px; padding: 16px; }
+      .detail-media.dryer-detail img { width: 68%; height: 68%; max-height: 280px; }
+      .spec-grid, .payment-details { grid-template-columns: 1fr; }
+      .technical-item { grid-template-columns: 1fr; gap: 4px; }
+      .variant-option, .btn { min-height: 44px; }
+      input, select, textarea { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <button class="brand" type="button" onclick="showCatalog()" aria-label="Ir al catálogo">
+        <img src="logo/logo-la-primera.png" alt="Logo LA PRIMERA">
+        <span class="brand-name">LA PRIMERA</span>
+      </button>
+      <div class="header-actions">
+        <a class="icon-btn" href="https://www.facebook.com/profile.php?id=100079241716954" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.5V6.75c0-.62.42-.75.72-.75H16.5V3h-2.45C11.33 3 10.7 5.05 10.7 6.36V8.5H9v3h1.7V21H14v-9.5h2.23l.35-3H14z"/></svg>
+        </a>
+        <a class="icon-btn" href="https://www.tiktok.com/@laprimeraelparkim?_r=1&_t=ZS-97Bph5eo3Qi" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 3c.3 2.3 1.6 3.7 3.9 3.9v3.2c-1.4.1-2.7-.3-3.9-1.1v5.9c0 3-2.1 5.1-5.2 5.1-2.9 0-5.1-2.1-5.1-4.9 0-3.2 2.7-5.5 6-5v3.3c-1.5-.5-2.8.3-2.8 1.6 0 1.1.8 1.8 1.9 1.8 1.3 0 2-.8 2-2.3V3h3.2z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="catalogView" class="page-view active">
+      <div class="store-hero">
+        <div class="hero-shell">
+          <div class="hero-intro brand-panel">
+            <div class="brand-visuals">
+              <img class="hero-logo" src="logo/logo-la-primera.png" alt="Logo LA PRIMERA">
+            </div>
+            <h1>LA PRIMERA</h1>
+            <p class="hero-copy">Productos de seguridad industrial y sanitarios al alcance de tu mano en un solo clic</p>
+            <div class="hero-social" aria-label="Redes sociales">
+              <a class="icon-btn" href="https://www.facebook.com/profile.php?id=100079241716954" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.5V6.75c0-.62.42-.75.72-.75H16.5V3h-2.45C11.33 3 10.7 5.05 10.7 6.36V8.5H9v3h1.7V21H14v-9.5h2.23l.35-3H14z"/></svg>
+              </a>
+              <a class="icon-btn" href="https://www.tiktok.com/@laprimeraelparkim?_r=1&_t=ZS-97Bph5eo3Qi" target="_blank" rel="noopener" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 3c.3 2.3 1.6 3.7 3.9 3.9v3.2c-1.4.1-2.7-.3-3.9-1.1v5.9c0 3-2.1 5.1-5.2 5.1-2.9 0-5.1-2.1-5.1-4.9 0-3.2 2.7-5.5 6-5v3.3c-1.5-.5-2.8.3-2.8 1.6 0 1.1.8 1.8 1.9 1.8 1.3 0 1.9-.8 1.9-2.3V3h3.2z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="purchase-steps" aria-label="Proceso de compra">
+            <article class="step-panel">
+              <img src="imagenes/paso-pedido.png?v=20260727" alt="Haz tu pedido: fácil y rápido en nuestra web o WhatsApp">
+            </article>
+            <article class="step-panel">
+              <img src="imagenes/paso-pago-digital.png?v=20260727" alt="Aceptamos pagos digitales">
+            </article>
+            <article class="step-panel">
+              <img src="imagenes/paso-entrega.png?v=20260727" alt="Rápido y seguro hasta tu puerta">
+            </article>
+            <article class="step-panel">
+              <img src="imagenes/delivery-shalom.png" alt="Delivery libre de costo y envíos Shalom a todo el Perú">
+            </article>
+          </div>
+        </div>
+        <section class="shipping-section" aria-label="Opciones de entrega">
+        <div class="container shipping-grid">
+          <div class="shipping-offer">
+            <img class="delivery-image" src="imagenes/delivery-gratis.png" alt="Delivery libre de costo">
+            <div class="shipping-copy">
+              <span>Lima por compras mayores a S/. 1,700.</span>
+            </div>
+          </div>
+          <div class="shipping-offer agency-offer">
+              <div class="agency-logos" aria-label="Shalom">
+                <img class="agency-logo" src="imagenes/shalom-logo.png" alt="Shalom">
+              </div>
+              <div class="shipping-copy">
+                <strong>Envíos a todo el Perú</strong>
+            </div>
+          </div>
+        </div>
+        </section>
+      </div>
+
+      <section class="rubros-section" aria-label="Rubros del catálogo">
+          <div class="container">
+            <div class="rubros-grid" id="categoryGrid">
+            </div>
+          </div>
+      </section>
+
+      <section class="container store-section">
+        <div class="section-head">
+          <div>
+            <h2>Productos</h2>
+            <p class="stock-note">Precios referenciales incluyen IGV. Confirma stock antes de pagar.</p>
+          </div>
+          <div class="result-count" id="resultCount"></div>
+        </div>
+        <div class="product-grid" id="productGrid">
+          <article class="product-card"><div class="product-image"><img src="productos/producto-01.jpg" alt="Chaleco anaranjado de dos bandas"></div><h3 class="product-name">CHALECO ANARANJADO DE DOS BANDAS</h3></article>
+          <article class="product-card"><div class="product-image"><img src="productos/producto-02.jpg" alt="Chaleco anaranjado de cuatro bandas"></div><h3 class="product-name">CHALECO ANARANJADO DE CUATRO BANDAS</h3></article>
+          <article class="product-card"><div class="product-image"><img src="productos/producto-03.jpg" alt="Traje Tyvek"></div><h3 class="product-name">TRAJE TYVEK</h3></article>
+          <article class="product-card"><div class="product-image"><img src="productos/producto-04.jpg" alt="Guante de poliuretano gris"></div><h3 class="product-name">GUANTE DE POLIURETANO GRIS</h3></article>
+          <article class="product-card"><div class="product-image"><img src="productos/producto-05.jpg" alt="Guante de poliuretano negro"></div><h3 class="product-name">GUANTE DE POLIURETANO NEGRO</h3></article>
+          <article class="product-card"><div class="product-image"><img src="productos/producto-06.jpg" alt="Guante anticorte negro con rojo"></div><h3 class="product-name">GUANTE ANTICORTE NEGRO CON ROJO</h3></article>
+          <article class="product-card"><div class="product-image"><img src="productos/producto-07.jpg" alt="Guante anticorte pesado"></div><h3 class="product-name">GUANTE ANTICORTE PESADO</h3></article>
+          <article class="product-card"><div class="product-image"><img src="productos/producto-08.jpg" alt="Guante anticorte amarillo con negro"></div><h3 class="product-name">GUANTE ANTICORTE AMARILLO CON NEGRO</h3></article>
+          <article class="product-card"><div class="product-image"><img src="productos/producto-09.jpg" alt="Guante doble punto"></div><h3 class="product-name">GUANTE DOBLE PUNTO</h3></article>
+          <article class="product-card"><div class="product-image"><img src="productos/producto-10.jpg" alt="Guante de cuero de badana"></div><h3 class="product-name">GUANTE DE CUERO DE BADANA</h3></article>
+        </div>
+      </section>
+    </section>
+
+    <section id="detailView" class="page-view">
+      <div class="container detail-wrap">
+        <button class="btn btn-soft back-link" type="button" onclick="showCatalog()">Volver al catálogo</button>
+        <div class="detail-card" id="detailCard"></div>
+      </div>
+    </section>
+
+    <section id="checkoutView" class="page-view">
+      <div class="container checkout-layout">
+        <form class="checkout-card" id="checkoutForm">
+          <button class="btn btn-soft back-link" type="button" onclick="showDetail(selectedProduct.id)">Volver al producto</button>
+          <h2>Finalizar compra</h2>
+          <p class="note">Completa tus datos. Al confirmar, se abrirá WhatsApp con el pedido listo para enviar.</p>
+
+          <div class="form-grid">
+            <input class="input" id="buyerName" required placeholder="Nombre y apellido / Empresa *">
+            <input class="input" id="buyerDoc" placeholder="DNI / RUC">
+            <input class="input" id="buyerPhone" required placeholder="Celular *">
+            <input class="input" id="buyerEmail" type="email" placeholder="Email">
+            <input class="input" id="quantity" type="number" min="1" value="1" required placeholder="Cantidad">
+            <select class="select" id="unitType">
+              <option value="Compra regular">Compra regular</option>
+              <option value="Compra por cajón">Compra por cajón</option>
+            </select>
+          </div>
+
+          <h3 style="margin-top:22px;">Entrega</h3>
+          <div class="choice-row">
+            <label class="choice"><input type="radio" name="deliveryType" value="Recojo en tienda" checked>Recojo en tienda</label>
+            <label class="choice"><input type="radio" name="deliveryType" value="Envío">Envío por agencia</label>
+          </div>
+
+          <div class="form-grid delivery-fields" id="deliveryFields">
+            <select class="select" id="agency">
+              <option value="Shalom">Shalom</option>
+              <option value="Marvisur">Marvisur</option>
+            </select>
+            <input class="input" id="receiverName" placeholder="Nombre de quien recibe">
+            <input class="input" id="receiverDoc" placeholder="DNI de quien recibe">
+            <input class="input" id="receiverPhone" placeholder="Celular de quien recibe">
+            <input class="input full" id="destination" placeholder="Ciudad / distrito / agencia de destino">
+            <textarea class="textarea full" id="deliveryNotes" rows="3" placeholder="Indicaciones adicionales para el envío"></textarea>
+          </div>
+
+          <h3 style="margin-top:22px;">Pago</h3>
+          <div class="choice-row">
+            <label class="choice"><input type="radio" name="paymentType" value="Plin" checked>Plin</label>
+            <label class="choice"><input type="radio" name="paymentType" value="Transferencia bancaria">Transferencia bancaria</label>
+          </div>
+          <div class="payment-grid">
+            <div class="qr-stack">
+              <button class="qr-trigger" type="button" onclick="openQrPreview()" aria-label="Ampliar código QR de Plin">
+                <img class="qr" src="pagos/qr-plin.png" alt="QR personal de Plin en BBVA">
+              </button>
+              <img class="plin-contact" src="pagos/plin-contacto.jpeg" alt="Plin: 993-346-812">
+            </div>
+            <div>
+              <ul class="bank-list">
+                <li><b>Plin:</b> pago mediante QR personal BBVA</li>
+                <li><b>Cuenta ahorro soles BBVA:</b> 0011-0814-0295232590-16</li>
+                <li><b>CCI:</b> 011-814-000295232590-16</li>
+                <li><b>Beneficiario:</b> Pietrik Van Viktor Olortegui Tolentino</li>
+              </ul>
+              <p class="note">Verifica que el nombre del beneficiario coincida antes de confirmar el pago.</p>
+            </div>
+          </div>
+
+          <button class="btn btn-orange full" type="submit" style="width:100%; margin-top:22px;">Comprar ahora por WhatsApp</button>
+        </form>
+        <aside class="summary-card" id="checkoutSummary"></aside>
+      </div>
+    </section>
+
+    <section id="claimView" class="page-view">
+      <div class="container claim-wrap">
+        <button class="btn btn-soft back-link" type="button" onclick="showCatalog()">Volver al catálogo</button>
+        <form class="claim-card" id="claimForm">
+          <h2>Libro de Reclamaciones</h2>
+          <p class="note">Completa los datos de tu reclamo o queja. Al enviar, se abrirá WhatsApp con la información lista para atención.</p>
+          <div class="form-grid">
+            <input class="input" id="claimName" required placeholder="Nombre y apellido *">
+            <input class="input" id="claimDoc" required placeholder="DNI / CE / RUC *">
+            <input class="input" id="claimPhone" required placeholder="Celular *">
+            <input class="input" id="claimEmail" type="email" placeholder="Correo electrónico">
+            <select class="select" id="claimType">
+              <option value="Reclamo">Reclamo</option>
+              <option value="Queja">Queja</option>
+            </select>
+            <input class="input" id="claimOrder" placeholder="Producto o número de pedido">
+            <textarea class="textarea full" id="claimDetail" rows="5" required placeholder="Detalle del reclamo o queja *"></textarea>
+            <textarea class="textarea full" id="claimRequest" rows="3" required placeholder="Pedido del consumidor *"></textarea>
+          </div>
+          <button class="btn btn-orange full" type="submit" style="width:100%; margin-top:22px;">Enviar por WhatsApp</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="qr-modal" id="qrModal" role="dialog" aria-modal="true" aria-label="Código QR de Plin ampliado" onclick="if(event.target === this) closeQrPreview()">
+    <div class="qr-modal-content">
+      <button class="qr-close" type="button" onclick="closeQrPreview()" aria-label="Cerrar">×</button>
+      <img src="pagos/qr-plin.png" alt="Código QR de Plin ampliado">
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="company-foot">
+        <strong>Peru Send EIRL</strong>
+        <span>Brokers y Traders Internacionales | Importación, búsqueda de proveedores y productos, logística y asesoría comercial</span>
+        <span><b>RUC:</b> 20509897124</span>
+        <span><b>Dirección:</b> Calle Puquina 100, Torre 5 Dpto. 605, Res. Los Prados de San Miguel, Lima - Perú</span>
+        <span class="visit-counter"><b>Visitas:</b> <span id="visitCount">Cargando...</span></span>
+        <span>© TODOS LOS DERECHOS RESERVADOS</span>
+      </div>
+      <button class="claims-link" type="button" onclick="showClaims()" aria-label="Abrir Libro de Reclamaciones">
+        <img src="imagenes/libro-reclamaciones.png" alt="Libro de Reclamaciones">
+        <span>Libro de Reclamaciones</span>
+      </button>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookieBanner">
+    <p>Usamos cookies para mejorar tu experiencia. Revisa nuestras <a href="https://www.falabella.com.pe/falabella-pe/page/seguridad-y-privacidad" target="_blank" rel="noopener">política de privacidad</a> y de <a href="https://www.falabella.com.pe/falabella-pe/page/politicas-de-cookies" target="_blank" rel="noopener">cookies</a>.</p>
+    <button class="btn btn-orange" type="button" onclick="acceptCookies()">Aceptar</button>
+  </div>
+
+  <div class="floating-stack">
+    <a class="floating-whatsapp" href="https://wa.me/51933069741" target="_blank" rel="noopener" aria-label="WhatsApp 933 069 741">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2A9.9 9.9 0 0 0 2.1 11.85c0 1.74.46 3.43 1.34 4.92L2 22l5.38-1.4a9.95 9.95 0 0 0 4.66 1.16h.01A9.9 9.9 0 0 0 22 11.91 9.92 9.92 0 0 0 12.04 2zm.01 18.08h-.01a8.25 8.25 0 0 1-4.2-1.15l-.3-.18-3.19.83.86-3.1-.2-.32a8.13 8.13 0 0 1-1.25-4.31 8.26 8.26 0 1 1 8.29 8.23zm4.53-6.17c-.25-.13-1.47-.72-1.7-.8-.23-.09-.4-.13-.56.12-.17.25-.64.8-.79.96-.14.17-.29.19-.54.07-.25-.13-1.05-.39-2-1.24-.74-.66-1.24-1.48-1.38-1.73-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.09-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.03 2.61c.13.17 1.78 2.72 4.31 3.81.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg>
+    </a>
+    <a class="floating-whatsapp alt" href="https://wa.me/51965713018" target="_blank" rel="noopener" aria-label="WhatsApp 965 713 018">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2A9.9 9.9 0 0 0 2.1 11.85c0 1.74.46 3.43 1.34 4.92L2 22l5.38-1.4a9.95 9.95 0 0 0 4.66 1.16h.01A9.9 9.9 0 0 0 22 11.91 9.92 9.92 0 0 0 12.04 2zm.01 18.08h-.01a8.25 8.25 0 0 1-4.2-1.15l-.3-.18-3.19.83.86-3.1-.2-.32a8.13 8.13 0 0 1-1.25-4.31 8.26 8.26 0 1 1 8.29 8.23zm4.53-6.17c-.25-.13-1.47-.72-1.7-.8-.23-.09-.4-.13-.56.12-.17.25-.64.8-.79.96-.14.17-.29.19-.54.07-.25-.13-1.05-.39-2-1.24-.74-.66-1.24-1.48-1.38-1.73-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.09-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.03 2.61c.13.17 1.78 2.72 4.31 3.81.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg>
+    </a>
+  </div>
+
+  <script>
+    const products = [{"id": 1, "categoria": "EPP industrial", "modelo": "2111", "titulo": "CHALECO ANARANJADO DE DOS BANDAS", "descripcion": "CHALECO ANARANJADO DE DOS BANDAS 85 GR - TALLAS M,L,XL", "detalle": "85 GR - TALLAS M,L,XL", "descripcionCorta": "85 GR - TALLAS M,L,XL · CAJA DE 100 UNDS", "cantidadCajon": "CAJA DE 100 UNDS", "precio": "5.5", "precioCajon": "5", "imagen": "productos/producto-01.jpg", "especificaciones": [{"label": "Código", "value": "2100"}, {"label": "Material", "value": "100% polyester"}, {"label": "Color", "value": "anaranjado brillante"}, {"label": "Peso", "value": "110 gr aprox"}, {"label": "Tallas", "value": "L & XL"}, {"label": "Presentación", "value": "Caja de 100 unidades (50 unidades talla L, 50 unidades talla XL)"}, {"label": "Aplicaciones", "value": "construcción, trafico, industria y seguridad personal"}, {"label": "Incluye", "value": "2 bandas de cintas reflectivas color plomo de 2” de ancho al frente y a la espalda, lo que permite que el chaleco sea visto en la oscuridad con reflejo de la luz, ligero y durable al lavado"}, {"label": "Presentación unitaria", "value": "Cada chaleco embolsado"}, {"label": "Tipo", "value": "meshair (tela apropiada para estampar)"}], "fichaTecnica": "1 FICHA TÉCNICA CHALECO 2 BANDAS", "imagenExtraida": "1.jpg"}, {"id": 2, "categoria": "EPP industrial", "modelo": "2110", "titulo": "CHALECO ANARANJADO DE CUATRO BANDAS", "descripcion": "CHALECO ANARANJADO DE CUATRO BANDAS 85 GR - TALLAS M,L,XL", "detalle": "85 GR - TALLAS M,L,XL", "descripcionCorta": "85 GR - TALLAS M,L,XL · CAJA DE 100 UNDS", "cantidadCajon": "CAJA DE 100 UNDS", "precio": "6.5", "precioCajon": "6", "imagen": "productos/producto-02.jpg", "especificaciones": [{"label": "Código", "value": "2110"}, {"label": "Material", "value": "100% POLYESTER"}, {"label": "Color", "value": "ANARANJADO BRILLANTE"}, {"label": "Peso", "value": "110 gr aprox"}, {"label": "Tallas", "value": "L & XL"}, {"label": "Presentación", "value": "Caja de 100 unidades (50 unidades talla L, 50 unidades talla XL)"}, {"label": "Aplicaciones", "value": "construcción, trafico, industria y seguridad personal"}, {"label": "Incluye", "value": "4 bandas de cintas reflectivas color plomo de 2” de ancho al frente y a la espalda, lo que permite que el chaleco sea visto en la oscuridad con reflejo de la luz, ligero y durable al lavado"}, {"label": "Presentación unitaria", "value": "Cada chaleco embolsado"}, {"label": "Tipo", "value": "meshair (tela apropiada para estampar)"}], "fichaTecnica": "2 FICHA TÉCNICA CHALECO 4 BANDAS", "imagenExtraida": "1.png"}, {"id": 3, "categoria": "EPP industrial", "modelo": "4000", "titulo": "TRAJE TYVEK", "descripcion": "TRAJE TYVEK - TALLAS S,M,L", "detalle": "TALLAS S,M,L", "descripcionCorta": "TALLAS S,M,L · CAJA DE 100 UNDS", "cantidadCajon": "CAJA DE 100 UNDS", "precio": "8.5", "precioCajon": "8", "imagen": "productos/producto-03.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 4, "categoria": "EPP industrial", "modelo": "307-G", "titulo": "Guante de Poliuretano GRIS", "descripcion": "Guante de Poliuretano GRIS tallas 7, 8 y 9 (Precio x docena) - KEVIN", "detalle": "tallas 7, 8 y 9 (Precio x docena) - KEVIN", "descripcionCorta": "tallas 7, 8 y 9 (Precio x docena) - KEVIN · 240/ PARES", "cantidadCajon": "240/ PARES", "precio": "2.34", "precioCajon": "2.23", "imagen": "productos/producto-04.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 5, "categoria": "EPP industrial", "modelo": "307-N", "titulo": "Guante de Poliuretano NEGRO", "descripcion": "Guante de Poliuretano NEGRO tallas 7, 8 y 9 (Precio x docena) - KEVIN", "detalle": "tallas 7, 8 y 9 (Precio x docena) - KEVIN", "descripcionCorta": "tallas 7, 8 y 9 (Precio x docena) - KEVIN", "cantidadCajon": "", "precio": "2.33", "precioCajon": "2", "imagen": "productos/producto-05.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 6, "categoria": "EPP industrial", "modelo": "301-NR", "titulo": "Guante Anticorte NEGRO con ROJO", "descripcion": "Guante Anticorte NEGRO con ROJO – FLEXYPLUS TALLA 8 Y 9 (Precio x docena)", "detalle": "FLEXYPLUS TALLA 8 Y 9 (Precio x docena)", "descripcionCorta": "FLEXYPLUS TALLA 8 Y 9 (Precio x docena)", "cantidadCajon": "", "precio": "2.3", "precioCajon": "2.2", "imagen": "productos/producto-06.jpg", "especificaciones": [{"label": "Código", "value": "6520"}], "fichaTecnica": "FICHA TECNICA GUANTE ANTICORTE NEGRO CON ROJO", "imagenExtraida": "26366264750.png"}, {"id": 7, "categoria": "EPP industrial", "modelo": "304-NN", "titulo": "Guante Anticorte Pesado NEGRO con NARANJA FLEXYPLUS", "descripcion": "Guante Anticorte Pesado NEGRO con NARANJA FLEXYPLUS Talla 9 (Precio x docena)", "detalle": "Talla 9 (Precio x docena)", "descripcionCorta": "Talla 9 (Precio x docena)", "cantidadCajon": "", "precio": "3", "precioCajon": "2.8", "imagen": "productos/producto-07.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 8, "categoria": "EPP industrial", "modelo": "302-NAM", "titulo": "Guante Anticorte AMARILLO con NEGRO", "descripcion": "Guante Anticorte AMARILLO con NEGRO – FLEXYPLUS TALLA 9 (Precio x docena)", "detalle": "FLEXYPLUS TALLA 9 (Precio x docena)", "descripcionCorta": "FLEXYPLUS TALLA 9 (Precio x docena)", "cantidadCajon": "", "precio": "3.13", "precioCajon": "2.92", "imagen": "productos/producto-08.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 9, "categoria": "EPP industrial", "modelo": "9210", "titulo": "GUANTE DOBLE PUNTO", "descripcion": "GUANTE DOBLE PUNTO - PALMA Y DORSO TALLA 9 (POR DOCENA)", "detalle": "PALMA Y DORSO TALLA 9 (POR DOCENA)", "descripcionCorta": "PALMA Y DORSO TALLA 9 (POR DOCENA)", "cantidadCajon": "", "precio": "1.83", "precioCajon": "1.5", "imagen": "productos/producto-09.jpg", "especificaciones": [{"label": "Código", "value": "4022"}], "fichaTecnica": "FICHA TECNICA - GUANTE DOBLE PUNTO", "imagenExtraida": "2304a08b-4362-48e0-bf95-67cbd611a8ad.jpg"}, {"id": 10, "categoria": "EPP industrial", "modelo": "903", "titulo": "GUANTE DE CUERO DE BADANA RIBETE AZUL", "descripcion": "GUANTE DE CUERO DE BADANA RIBETE AZUL - SHANCHI NORMA EN 388", "detalle": "SHANCHI NORMA EN 388", "descripcionCorta": "SHANCHI NORMA EN 388 · 144/ PARES", "cantidadCajon": "144/ PARES", "precio": "6", "precioCajon": "5.83", "imagen": "productos/producto-10.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 11, "categoria": "EPP industrial", "modelo": "9211", "titulo": "GUANTE DE SOLDAR", "descripcion": "GUANTE DE SOLDAR TALLA ESTÁNDAR", "detalle": "TALLA ESTÁNDAR", "descripcionCorta": "TALLA ESTÁNDAR", "cantidadCajon": "", "precio": "15", "precioCajon": "13", "imagen": "productos/producto-11.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 12, "categoria": "EPP industrial", "modelo": "", "titulo": "GUANTE DE CUERO REFORZADO PARA SOLDADOR", "descripcion": "GUANTE DE CUERO REFORZADO SOLDADOR /LARGO 15'' - TALLA 9", "detalle": "Largo 15 pulgadas. Talla 9.", "descripcionCorta": "Largo 15 pulgadas. Talla 9.", "cantidadCajon": "", "precio": "22.3", "precioCajon": "20", "imagen": "productos/producto-12.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 13, "categoria": "EPP industrial", "modelo": "2222", "titulo": "GUANTE CHEMICAL", "descripcion": "GUANTE CHEMICAL CALIBRE 35, 54 CM LARGO, TALLA 9", "detalle": "CALIBRE 35, 54 CM LARGO, TALLA 9", "descripcionCorta": "CALIBRE 35, 54 CM LARGO, TALLA 9 · 200/PARES", "cantidadCajon": "200/PARES", "precio": "12.5", "precioCajon": "12", "imagen": "productos/producto-13.jpg", "especificaciones": [{"label": "Código", "value": "2222"}, {"label": "Presentación", "value": "CAJA DE 72 PARES (6 PAQUETES X 12 PARES)"}, {"label": "Usos típicos", "value": "Reparación de máquinas, jardinería, acuarios, procesamiento químico, procesamiento químico de laboratorio, limpieza del hogar, lavado de autos, mantenimiento de máquinas, mezclas químicas corrosivas, plantas de almacenamiento en frio, cosecha. limpieza, pesca, manipulación de productos químicos, fum..."}], "fichaTecnica": "21 FICHA TÉCNICA GUANTE CHEMICAL 22 PULGADAS", "imagenExtraida": "1.png"}, {"id": 14, "categoria": "EPP industrial", "modelo": "BG483", "titulo": "GUANTES DE NITRILO VERDES", "descripcion": "GUANTES DE NITRILO VERDES, CALIBRE 15,33 CM LARGO, TALLA 8 Y 9", "detalle": "CALIBRE 15,33 CM LARGO, TALLA 8 Y 9", "descripcionCorta": "CALIBRE 15,33 CM LARGO, TALLA 8 Y 9 · 120/PARES", "cantidadCajon": "120/PARES", "precio": "3.08", "precioCajon": "2.92", "imagen": "productos/producto-14.jpg", "especificaciones": [{"label": "Código", "value": "3057"}, {"label": "Material", "value": "100% NITRILO. LARGO: 33 cm (13¨)"}, {"label": "Presentación", "value": "EN BOLSA"}, {"label": "Usos típicos", "value": "Manipulación de sustancias Químicos"}, {"label": "Espesor", "value": "15 mil (0.38 mm)"}], "fichaTecnica": "FICHA TECNICA - GUANTE DE NITRILO VERDE", "imagenExtraida": "1-500x500.png"}, {"id": 15, "categoria": "EPP industrial", "modelo": "2300", "titulo": "LENTE DE PVC ECONOMICO HC CLARO MARCO AZUL", "descripcion": "LENTE DE PVC ECONOMICO HC CLARO MARCO AZUL", "detalle": "", "descripcionCorta": "300 UNDS", "cantidadCajon": "300 UNDS", "precio": "1.25", "precioCajon": "1.08", "imagen": "productos/producto-15.jpg", "especificaciones": [{"label": "Código", "value": "2300"}, {"label": "Material", "value": "marco de PVC, visor de PVC"}, {"label": "Color", "value": "marco azul, visor transparente. VISION: excelente visibilidad con claridad. DISEÑO: protección ocular contra impactos, cómodo y liviano. DURACIÓN: media duración (dependiendo el tipo de trabajo)"}, {"label": "Presentación", "value": "CAJA DE 12 UNIDADES"}, {"label": "Usos típicos", "value": "normalmente usado para trabajos que implique la protección ocular contra impacto de objetos a alta velocidad. RECOMENDACIONES: estos lentes de seguridad deben quedar bien ajustados contra la cara y no deslizarse por la nariz, limpiar con regularidad"}, {"label": "Presentación unitaria", "value": "CADA LENTE EMBOLSADO"}, {"label": "Descripción técnica", "value": "LOGO: LA PRIMERA"}], "fichaTecnica": "23 FICHA TÉCNICA LENTE HC MARCO AZUL", "imagenExtraida": "1.png"}, {"id": 16, "categoria": "EPP industrial", "modelo": "2310", "titulo": "LENTES DE SEGURIDAD ANTIEMPAÑO MARCO AZUL", "descripcion": "LENTES DE SEGURIDAD ANTIEMPAÑO MARCO AZUL", "detalle": "", "descripcionCorta": "480 UNDS", "cantidadCajon": "480 UNDS", "precio": "2.25", "precioCajon": "2", "imagen": "productos/producto-16.jpg", "especificaciones": [{"label": "Código", "value": "2310"}, {"label": "Material", "value": "marco de PVC, visor de POLICARBONATO"}, {"label": "Color", "value": "marco azul, visor transparente. DISEÑO: antiempañante. DURACIÓN: larga duración (dependiendo el tipo de trabajo)"}, {"label": "Presentación", "value": "CAJA DE 12 UNIDADES"}, {"label": "Presentación unitaria", "value": "CADA LENTE EMBOLSADO"}, {"label": "Descripción técnica", "value": "LOGO: LA PRIMERA"}], "fichaTecnica": "22 FICHA TÉCNICA LENTE AF MARCO AZUL ANTIEMPAÑANTE", "imagenExtraida": "1.png"}, {"id": 17, "categoria": "EPP industrial", "modelo": "2311", "titulo": "LENTE DE PVC ECONOMICO HC OSCURO MARCO AZUL", "descripcion": "LENTE DE PVC ECONOMICO HC OSCURO MARCO AZUL", "detalle": "", "descripcionCorta": "300 UNDS", "cantidadCajon": "300 UNDS", "precio": "1.25", "precioCajon": "1.08", "imagen": "productos/producto-17.jpg", "especificaciones": [{"label": "Código", "value": "2300"}, {"label": "Material", "value": "marco de PVC, visor de PVC"}, {"label": "Color", "value": "marco azul, visor gris claro. VISION: excelente visibilidad con claridad tanto en lugares oscuros y brillo solar. DISEÑO: protección ocular contra impactos, cómodo y liviano. DURACIÓN: media duración (dependiendo el tipo de trabajo)"}, {"label": "Presentación", "value": "CAJA DE 12 UNIDADES"}, {"label": "Usos típicos", "value": "normalmente usado para trabajos que implique la protección ocular contra impacto de objetos a alta velocidad. RECOMENDACIONES: estos lentes de seguridad deben quedar bien ajustados contra la cara y no deslizarse por la nariz, limpiar con regularidad"}, {"label": "Presentación unitaria", "value": "CADA LENTE EMBOLSADO"}, {"label": "Descripción técnica", "value": "LOGO: LA PRIMERA"}], "fichaTecnica": "35  FICHA TÉCNICA  LENTES HC  DE PVC GRIS MARCO AZUL ECONOMICOS", "imagenExtraida": "46BUS_1024x1024@2x.jpg"}, {"id": 18, "categoria": "EPP industrial", "modelo": "2320", "titulo": "LENTE SEGURIDAD SPIDER CLARO", "descripcion": "LENTE SEGURIDAD SPIDER CLARO", "detalle": "", "descripcionCorta": "600 UNDS", "cantidadCajon": "600 UNDS", "precio": "2", "precioCajon": "1.67", "imagen": "productos/producto-18.jpg", "especificaciones": [{"label": "Código", "value": "2320"}, {"label": "Material", "value": "POLICARBONATO"}, {"label": "Color", "value": "transparente. VISION: excelente visibilidad con claridad. DISEÑO: protección ocular contra impactos, cómodo y liviano. DURACIÓN: alta duración (dependiendo el tipo de trabajo)"}, {"label": "Presentación", "value": "CAJA DE 12 UNIDADES"}, {"label": "Usos típicos", "value": "normalmente usado para trabajos que implique la protección ocular contra impacto de objetos a alta velocidad. RECOMENDACIONES: limpiar con regularidad"}, {"label": "Presentación unitaria", "value": "CADA LENTE EMBOLSADO"}, {"label": "Descripción técnica", "value": "LOGO: LA PRIMERA"}], "fichaTecnica": "24 FICHA TÉCNICA LENTE SPIDER CLARO", "imagenExtraida": "1.png"}, {"id": 19, "categoria": "EPP industrial", "modelo": "2330", "titulo": "LENTE SEGURIDAD SPIDER SPIDER GRIS", "descripcion": "LENTE SEGURIDAD SPIDER SPIDER GRIS - x Docena", "detalle": "x Docena", "descripcionCorta": "x Docena · 300 UNDS", "cantidadCajon": "300 UNDS", "precio": "2", "precioCajon": "1.67", "imagen": "productos/producto-19.jpg", "especificaciones": [{"label": "Código", "value": "2330"}, {"label": "Material", "value": "POLICARBONATO"}, {"label": "Color", "value": "oscuro. VISION: excelente visibilidad ante claridad del sol. DISEÑO: protección ocular contra impactos, cómodo y liviano. DURACIÓN: alta duración (dependiendo el tipo de trabajo)"}, {"label": "Presentación", "value": "CAJA DE 12 UNIDADES"}, {"label": "Usos típicos", "value": "normalmente usado para trabajos que implique la protección ocular contra impacto de objetos a alta velocidad y brillo excesivo de luz. RECOMENDACIONES: limpiar con regularidad"}, {"label": "Presentación unitaria", "value": "CADA LENTE EMBOLSADO"}, {"label": "Descripción técnica", "value": "LOGO: LA PRIMERA"}], "fichaTecnica": "25 FICHA TÉCNICA LENTE SPIDER OSCURO", "imagenExtraida": "1.png"}, {"id": 20, "categoria": "EPP industrial", "modelo": "AR3001", "titulo": "PROTECTOR FACIAL CON CABEZAL AMARILLO", "descripcion": "PROTECTOR FACIAL CON CABEZAL AMARILLO DE ALTO IMPACTO 375", "detalle": "Alto impacto. Modelo 375.", "descripcionCorta": "Alto impacto. Modelo 375. · 40 UNDS", "cantidadCajon": "40 UNDS", "precio": "16", "precioCajon": "14", "imagen": "productos/producto-20.jpg", "especificaciones": [{"label": "Código", "value": "AR3001 ESPECIAL PARA: REDUCIR EL RIESGO SALPICADURA"}, {"label": "Material", "value": "policarbonato transparente de alta densidad, 1.50 mm de espesor, 40 cm de largo X 20 cm de ancho, con filo de aluminio, para mayor durabilidad"}, {"label": "Color", "value": "cabezal de PVC amarillo, sujetador plástico negro. DURACIÓN: protector facial, ligero, confortable ajuste en la cabeza. diseñado para trabajos generales en la industria, reduciendo el riesgo por impacto de salpicadura por partículas o fluidos sobre los ojos, nariz y boca del usuario. Así mismo permi..."}, {"label": "Presentación", "value": "SET DE 3 PIEZAS"}, {"label": "Aplicaciones", "value": "INDUSTRIAL, SALUD Y DOMESTICO"}, {"label": "Venta", "value": "POR MENOR Y POR MAYOR"}, {"label": "Uso", "value": "Protección del rostro contra salpicaduras por partículas sólidas o liquidas"}], "fichaTecnica": "39 FICHA TÉCNICA PROTECTOR FACIAL CON CABEZAL AMARILLO DE ALTO IMPACTO 375", "imagenExtraida": "1.jpg"}, {"id": 21, "categoria": "EPP industrial", "modelo": "2440", "titulo": "MASCARILLA RESPIRADORA DE MEDIA CARA DE SILICONA", "descripcion": "MASCARILLA RESPIRADORA MEDIA CARA DE SILICONA 7502 - 6003", "detalle": "Modelos 7502 y 6003.", "descripcionCorta": "Modelos 7502 y 6003.", "cantidadCajon": "", "precio": "30", "precioCajon": "28", "imagen": "productos/producto-21.jpg", "especificaciones": [{"label": "Código", "value": "3056 ESPECIAL PARA: GASES Y VAPORES"}, {"label": "Material", "value": "silicona"}, {"label": "Presentación unitaria", "value": "CADA MASCARILLA EMBOLSADA JUNTO CON SUS FILTROS"}, {"label": "Uso", "value": "Protección contra vapores orgánicos y gases ácidos"}], "fichaTecnica": "26 FICHA TÉCNICA MASCARILLA SILICONA MEDIA CARA CON FILTROS PARA GASES", "imagenExtraida": "1.png"}, {"id": 22, "categoria": "EPP industrial", "modelo": "9056", "titulo": "FILTRO 2097 / 6003", "descripcion": "FILTRO 2097 / 6003", "detalle": "", "descripcionCorta": "Consulta disponibilidad, presentación y stock.", "cantidadCajon": "", "precio": "22", "precioCajon": "20", "imagen": "productos/producto-22.jpg", "especificaciones": [{"label": "Código", "value": "RR3000 ESPECIAL PARA: PARTÍCULAS VIRALES (POLVOS)"}, {"label": "Material", "value": "algodón"}, {"label": "Color", "value": "rosado. SUJETADOR UNIVERSAL: adaptable con respiradores reutilizables"}, {"label": "Presentación", "value": "SET DE PAR DE FILTROS EN BOLSA PLASTICA"}, {"label": "Aplicaciones", "value": "INDUSTRIAL, SALUD Y DOMESTICO"}, {"label": "Venta", "value": "POR MENOR Y POR MAYOR"}, {"label": "Uso", "value": "Protección contra partículas. Recomendado para la protección contra ozono y contra niveles molestos de vapores orgánicos, (protección respiratoria contra partículas de sustancias específicas). INFORMACIÓN ADICIONAL: P100, filtro para partículas de vapor orgánico"}], "fichaTecnica": "FICHA TÉCNICA FILTRO PARA POLVO 2097", "imagenExtraida": "2.png"}, {"id": 23, "categoria": "EPP industrial", "modelo": "904", "titulo": "OREJERA PLETOR H9P3E", "descripcion": "OREJERA PLETOR H9P3E - 3M", "detalle": "3M", "descripcionCorta": "3M", "cantidadCajon": "", "precio": "105", "precioCajon": "100", "imagen": "productos/producto-23.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 24, "categoria": "EPP industrial", "modelo": "9207", "titulo": "TAPÓN DE OÍDOS", "descripcion": "TAPON DE OIDOS EN BOLSA PLASTICA X CAJA DE 100 UNIDS.", "detalle": "Presentación en bolsa plástica. Caja de 100 unidades.", "descripcionCorta": "Presentación en bolsa plástica. Caja de 100 unidades.", "cantidadCajon": "", "precio": "1.2", "precioCajon": "1", "imagen": "productos/producto-24.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 25, "categoria": "EPP y señalización", "modelo": "5000", "titulo": "BOTIN DE CUERO PUNTA DE ACERO", "descripcion": "BOTIN DE CUERO PUNTA DE ACERO DIVERSAS TALLAS", "detalle": "DIVERSAS TALLAS", "descripcionCorta": "DIVERSAS TALLAS", "cantidadCajon": "", "precio": "32", "precioCajon": "30", "imagen": "productos/producto-25.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 26, "categoria": "EPP y señalización", "modelo": "9212", "titulo": "BOTAS IMPREMEABLES DE PVC ZUELA BLANCA", "descripcion": "BOTAS IMPREMEABLES DE PVC ZUELA BLANCA- TALLAS VARIADAS", "detalle": "TALLAS VARIADAS", "descripcionCorta": "TALLAS VARIADAS", "cantidadCajon": "", "precio": "28", "precioCajon": "25", "imagen": "productos/producto-26.jpg", "especificaciones": [{"label": "Características", "value": "Peso Aprox: 1.56 kg. /Par. Color de caña: Color de suela: Altura promedio 36 cm"}], "fichaTecnica": "FICHA TECNICA - BOTA XTREME", "imagenExtraida": "5252573.png"}, {"id": 27, "categoria": "EPP y señalización", "modelo": "9214", "titulo": "ARNES DE TRES PUNTOS BRIZUVIC", "descripcion": "ARNES DE TRES PUNTOS BRIZUVIC - Material: Poliéster AT. Tipo de arnés de seguridad - Anticaída. Ancho de la cinta: 45 mm. Cantidad de puntos de anclaje 3. Con cabo de vida de 2m.", "detalle": "Material: Poliéster AT. Tipo de arnés de seguridad - Anticaída. Ancho de la cinta: 45 mm. Cantidad de puntos de anclaje 3. Con cabo de vida de 2m.", "descripcionCorta": "Material: Poliéster AT. Tipo de arnés de seguridad - Anticaída. Ancho de la cinta: 45 mm. Cantidad de puntos de anclaje 3....", "cantidadCajon": "", "precio": "130", "precioCajon": "125", "imagen": "productos/producto-27.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 28, "categoria": "EPP y señalización", "modelo": "9080", "titulo": "CINTA DE PELIGRO AMARILLO", "descripcion": "CINTA DE PELIGRO AMARILLO X 200 MTS", "detalle": "200 MTS", "descripcionCorta": "200 MTS", "cantidadCajon": "", "precio": "22", "precioCajon": "20", "imagen": "productos/producto-28.jpg", "especificaciones": [{"label": "Código", "value": "9080"}, {"label": "Material", "value": "Polietileno Resistencia: Rango de temperatura de trabajo de -7° C hasta 60° C. Tipo de señal: Señalética"}, {"label": "Color", "value": "Amarillo"}, {"label": "Espesor", "value": "0.1 mm ±5%. Alto: 5’’ (12.7 cm). Largo: 200 m"}, {"label": "Uso", "value": "ideal para delimitación de obras o mantenimientos"}], "fichaTecnica": "FICHA TECNICA CINTA DE PELIGRO AMARILLO DE 5'' X 200 M", "imagenExtraida": "cinta-seguridad-peligro-hombres-trabajando-amarillo-1.jpg"}, {"id": 29, "categoria": "EPP y señalización", "modelo": "9081", "titulo": "CINTA DE PELIGRO ROJO", "descripcion": "CINTA DE PELIGRO ROJO X 200 MTS", "detalle": "200 MTS", "descripcionCorta": "200 MTS", "cantidadCajon": "", "precio": "22", "precioCajon": "20", "imagen": "productos/producto-29.jpg", "especificaciones": [{"label": "Código", "value": "9080"}, {"label": "Material", "value": "Polietileno Resistencia: Rango de temperatura de trabajo de -7° C hasta 60° C. Tipo de señal: Señalética"}, {"label": "Color", "value": "Rojo"}, {"label": "Espesor", "value": "0.1 mm ±5%. Alto: 5’’ (12.7 cm). Largo: 200 m"}, {"label": "Uso", "value": "ideal para delimitación de obras o mantenimientos"}], "fichaTecnica": "FICHA TECNICA CINTA DE PELIGRO ROJA DE 5'' X 200 M", "imagenExtraida": "1352881_01.jpg"}, {"id": 30, "categoria": "EPP y señalización", "modelo": "1110", "titulo": "CONO RIGIDO TRAFICO 28\"", "descripcion": "CONO RIGIDO TRAFICO 28\" - MATERIAL: PVC.", "detalle": "MATERIAL: PVC.", "descripcionCorta": "MATERIAL: PVC.", "cantidadCajon": "", "precio": "25", "precioCajon": "23", "imagen": "productos/producto-30.jpg", "especificaciones": [], "fichaTecnica": "FICHA TÉCNICA CONOS DE PVC", "imagenExtraida": "Cono-de-pvc-Anluc-TopEpp-S.A.C..jpg"}, {"id": 31, "categoria": "EPP y señalización", "modelo": "1112", "titulo": "CONO RIGIDO TRAFICO 36\"", "descripcion": "CONO RIGIDO TRAFICO 36\" - MATERIAL: PVC.", "detalle": "MATERIAL: PVC.", "descripcionCorta": "MATERIAL: PVC.", "cantidadCajon": "", "precio": "44", "precioCajon": "42", "imagen": "productos/producto-31.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 32, "categoria": "EPP y señalización", "modelo": "9050", "titulo": "CONO DE TRÁFICO PLEGABLE NARANJA", "descripcion": "CONO DE TRÁFICO PLEGABLE NARANJA - 45 cm L X 24 cm (16\")", "detalle": "45 cm L X 24 cm (16\")", "descripcionCorta": "45 cm L X 24 cm (16\")", "cantidadCajon": "", "precio": "28", "precioCajon": "26", "imagen": "productos/producto-32.jpg", "especificaciones": [{"label": "Código", "value": "3300 DESCRIPCIÓN: Cono con base, punta y anillos interiores, fabricado de PVC y cubierto con tela impermeable naranja fuerte, posee dos bandas anchas refractivas grises. En su tope se instala una baliza destellante color roja (Usa 2 pilas AAA no incluidas) Muy cómodo para uso particular"}, {"label": "Características", "value": "Autoempacable, Flexible, liviano / menos de 1Kg) BENEFICIOS: ✓ Color visible ✓ Cintas reflectante"}], "fichaTecnica": "FICHA TECNICA CONO RETRACTIL", "imagenExtraida": "CONO-PLEGABLE-28PLG.jpg"}, {"id": 33, "categoria": "EPP y señalización", "modelo": "9211", "titulo": "BARRA RETRACTIL", "descripcion": "BARRA RETRACTIL - Material: PVC Medida: de 1.50 a 2.15 mt Enganche circular de color amarillo de 8.5 cm de diámetro interior. Diámetro barra interna 3.2 cm; Diámetro barra externa 3.8 cm Color amarillo / negro a rayas, alta visibilidad en día y noche. Peso ligero (450 g)", "detalle": "Material: PVC Medida: de 1.50 a 2.15 mt Enganche circular de color amarillo de 8.5 cm de diámetro interior. Diámetro barra interna 3.2 cm; Diámetro barra externa 3.8 cm Color amarillo / negro a rayas, alta visibilidad en día y noche. Peso ligero (450 g)", "descripcionCorta": "Material: PVC Medida: de 1.50 a 2.15 mt Enganche circular de color amarillo de 8.5 cm de diámetro interior. Diámetro barra interna...", "cantidadCajon": "", "precio": "14", "precioCajon": "12", "imagen": "productos/producto-33.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 34, "categoria": "EPP y señalización", "modelo": "3001", "titulo": "TABLERO DE PRECAUCION \"PISO MOJADO\"", "descripcion": "TABLERO DE PRECAUCION \"PISO MOJADO\" - 850 GR - PESADO", "detalle": "850 GR - PESADO", "descripcionCorta": "850 GR - PESADO", "cantidadCajon": "", "precio": "16", "precioCajon": "15.5", "imagen": "productos/producto-34.jpg", "especificaciones": [{"label": "Código", "value": "3051 FAMILIA: SEÑALIZACION"}, {"label": "Material", "value": "Plástico"}, {"label": "Color", "value": "Amarillo"}, {"label": "Anchura", "value": "21 cm. (parte superior), 28 cm. (parte inferior)"}, {"label": "Altura", "value": "65 cm"}, {"label": "Peso", "value": "490 gr. ±3 %"}, {"label": "Características", "value": "práctico, ligero y económico. Adecuado para señalética de seguridad y prevención de accidentes compuesta de 2 partes utilizada para avisar sobre suelos mojados o con posibles zonas deslizantes"}, {"label": "Procedencia", "value": "China"}], "fichaTecnica": "38 FICHA TECNICA - TABLERO PLEGABLE SEÑAL PISO MOJADO 490GR", "imagenExtraida": "IMG_20230607_171407.jpg"}, {"id": 35, "categoria": "EPP y señalización", "modelo": "6000", "titulo": "SEÑALIZACION DE PLASTICO", "descripcion": "SEÑALIZACION DE PLASTICO - PARE Y SIGA", "detalle": "PARE Y SIGA", "descripcionCorta": "PARE Y SIGA", "cantidadCajon": "", "precio": "14", "precioCajon": "12", "imagen": "productos/producto-35.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 36, "categoria": "EPP y señalización", "modelo": "9053", "titulo": "VARA LUMINOSA RECARGABLE ROJA", "descripcion": "VARA LUMINOSA RECARGABLE ROJA - 53 CM L X 39 mm D", "detalle": "53 CM L X 39 mm D", "descripcionCorta": "53 CM L X 39 mm D", "cantidadCajon": "", "precio": "25", "precioCajon": "24", "imagen": "productos/producto-36.jpg", "especificaciones": [{"label": "Código", "value": "3053 FAMILIA: SEÑALIZACION"}, {"label": "Color", "value": "Rojo Tubo exterior: Tipo PVC Resistente a condiciones de tiempo adverso y golpes Posee mango ABS negro antideslizante Transportable: Sujetador de mano Diámetro de 4.3 cm, largo de 54 cm Rango máximo de"}, {"label": "Presentación unitaria", "value": "EN BLOSA Y CAJA"}, {"label": "Descripción técnica", "value": "Sistema LED: 6 led color rojo Incluye batería recargable y cargador Luz"}, {"label": "Visibilidad", "value": "600 metros Funciones: Luz intermitente, fija y apagada Procedencia China Adecuado para dirigir a peatones y conductores para prevenir accidentes en zonas de trabajo, zonas de poca visibilidad o en lugares oscuros gracias a su luz intermitente"}], "fichaTecnica": "FICHA TECNICA - VARA LUMINOSA RECARGABLE  ROJA", "imagenExtraida": "92e0fef6-6803-4fe6-aa6d-71564ae68cd0.jfif"}, {"id": 37, "categoria": "EPP y señalización", "modelo": "7000", "titulo": "VARA LUMINOSA PILAS 2D ROJA", "descripcion": "VARA LUMINOSA PILAS 2D ROJA - 53 CM L X 39 mm D -PILAS NO INCLUIDAS", "detalle": "53 CM L X 39 mm D -PILAS NO INCLUIDAS", "descripcionCorta": "53 CM L X 39 mm D -PILAS NO INCLUIDAS", "cantidadCajon": "", "precio": "13.5", "precioCajon": "12.5", "imagen": "productos/producto-37.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 38, "categoria": "EPP y señalización", "modelo": "7001", "titulo": "VARA LUMINOSA RECARGABLE VERDE", "descripcion": "VARA LUMINOSA RECARGABLE VERDE- 53 CM L X 39 mm D", "detalle": "53 CM L X 39 mm D", "descripcionCorta": "53 CM L X 39 mm D", "cantidadCajon": "", "precio": "25", "precioCajon": "24", "imagen": "productos/producto-38.jpg", "especificaciones": [{"label": "Código", "value": "3054 FAMILIA: SEÑALIZACION"}, {"label": "Color", "value": "verde Tubo exterior: Tipo PVC Resistente a condiciones de tiempo adverso y golpes Posee mango ABS negro antideslizante Transportable: Sujetador de mano Diámetro de 4.3 cm, largo de 54 cm Rango máximo de"}, {"label": "Presentación unitaria", "value": "EN BLOSA Y CAJA"}, {"label": "Descripción técnica", "value": "Sistema LED: 6 led color verde Incluye batería recargable y cargador Luz"}, {"label": "Visibilidad", "value": "600 metros Funciones: Luz intermitente, fija y apagada Procedencia China Adecuado para dirigir a peatones y conductores para prevenir accidentes en zonas de trabajo, zonas de poca visibilidad o en lugares oscuros gracias a su luz intermitente"}], "fichaTecnica": "FICHA TÉCNICA - VARA LUMINOSA RECARGABLE VERDE", "imagenExtraida": "65454234558.png"}, {"id": 39, "categoria": "EPP y señalización", "modelo": "7002", "titulo": "VARA LUMINOSA RECARGABLE BICOLOR", "descripcion": "VARA LUMINOSA RECARGABLE BICOLOR- 53 CM L X 39 mm D", "detalle": "53 CM L X 39 mm D", "descripcionCorta": "53 CM L X 39 mm D", "cantidadCajon": "", "precio": "28", "precioCajon": "26.5", "imagen": "productos/producto-39.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 40, "categoria": "Seguridad visual y pisos", "modelo": "9052", "titulo": "PONCHO AZUL IMPERMEABLE DE PVC CON VISOR", "descripcion": "PONCHO AZUL INPERMEABLE DE PVC CON VISOR, PESADO", "detalle": "Modelo pesado.", "descripcionCorta": "Modelo pesado.", "cantidadCajon": "", "precio": "18", "precioCajon": "16", "imagen": "productos/producto-40.jpg", "especificaciones": [{"label": "Código", "value": "3054 FAMILIA: ROPA DE SEGURIDAD"}, {"label": "Color", "value": "azul exterior y rojo por dentro. - Impermeabilidad: 100%"}, {"label": "Medida", "value": "1 mt de ancho x 1 mt de largo"}, {"label": "Peso", "value": "990 gr. ±3 %"}, {"label": "Características", "value": "Cuenta con capucha con visera y con cordón de ajuste para la protección de área de la cabeza. Adecuado para actividades al aire libre climas lluvioso, actividades de pesca, etc"}, {"label": "Presentación unitaria", "value": "EN BLOSA CON ZIPPER"}, {"label": "Descripción técnica", "value": "Material Tela poliéster con PVC"}, {"label": "Procedencia", "value": "China"}], "fichaTecnica": "FICHA TECNICA PONCHO PESADO", "imagenExtraida": "16892646429.png"}, {"id": 41, "categoria": "Seguridad visual y pisos", "modelo": "9000", "titulo": "PONCHO GRIS IMPERMEABLE DE PVC CON BOLSILLO", "descripcion": "PONCHO GIRS INPERMEABLE DE PVC CON BOLSILLO PARA CELULAR, PESADO", "detalle": "Bolsillo para celular. Modelo pesado.", "descripcionCorta": "Bolsillo para celular. Modelo pesado.", "cantidadCajon": "", "precio": "18", "precioCajon": "16", "imagen": "productos/producto-41.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 42, "categoria": "Seguridad visual y pisos", "modelo": "2502", "titulo": "CINTA ANTIDESLIZANTE AMARILLO 2\"", "descripcion": "CINTA ANTIDESLIZANTE AMARILLO 2\" X 18 M", "detalle": "18 M", "descripcionCorta": "18 M · 24 UNDS", "cantidadCajon": "24 UNDS", "precio": "32", "precioCajon": "30", "imagen": "productos/producto-42.jpg", "especificaciones": [{"label": "Código", "value": "2502"}, {"label": "Material", "value": "PVC, abrasivo, Textura de grano 6 0. partículas de mineral abrasivo unidas por un fuerte polímero duradero, adheridas a una película plástica. Excelente adhesión a múltiples superficies. Permite tráfico de objetos rodantes. Resistencia al encogimiento. Resistencia al desprendimiento"}, {"label": "Color", "value": "amarillo. DURACION: alto tránsito, resistente al agua, alta adherencia, resistente a la fricción, excelente duración"}, {"label": "Medidas", "value": "5 cm x 18 metros. INSTALACION: fácil de cortar e instalar, revestimiento de respaldo de fácil retiro"}, {"label": "Marca", "value": "LA PRIMERA"}, {"label": "Visibilidad", "value": "Alta visibilidad, excelente manera de marcar el peligro, evita el riesgo de resbalones"}], "fichaTecnica": "31 FICHA TÉCNICA CINTA ANTIDESLIZANTE AMARILLO", "imagenExtraida": "1.png"}, {"id": 43, "categoria": "Seguridad visual y pisos", "modelo": "2500", "titulo": "CINTA ANTIDESLIZANTE AMARILLO / NEGRO 2\"", "descripcion": "CINTA ANTIDESLIZANTE AMARILLO / NEGRO 2\" X 18 M", "detalle": "18 M", "descripcionCorta": "18 M · 24 UNDS", "cantidadCajon": "24 UNDS", "precio": "40", "precioCajon": "38", "imagen": "productos/producto-43.jpg", "especificaciones": [{"label": "Código", "value": "2500"}, {"label": "Material", "value": "PVC, abrasivo, Textura de grano 6 0. partículas de mineral abrasivo unidas por un fuerte polímero duradero, adheridas a una película plástica. Excelente adhesión a múltiples superficies. Permite tráfico de objetos rodantes, resistente al encogimiento y resistente al desprendimiento"}, {"label": "Color", "value": "amarillo con negro. DURACION: alto tránsito, resistente al agua, alta adherencia, resistente a la fricción, excelente duración"}, {"label": "Medidas", "value": "5 cm x 18 metros. INSTALACION: fácil de cortar e instalar, revestimiento de respaldo de fácil retiro"}, {"label": "Descripción técnica", "value": "LOGO: LA PRIMERA"}, {"label": "Visibilidad", "value": "Alta visibilidad, excelente manera de marcar el peligro, evita el riesgo de resbalones"}], "fichaTecnica": "3 FICHA TÉCNICA CINTA ANTIDESLIZANTE AMARILLO CON NEGRO", "imagenExtraida": "1.jpg"}, {"id": 44, "categoria": "Seguridad visual y pisos", "modelo": "2501", "titulo": "CINTA ANTIDESLIZANTE FOTOLUMINISCENTE VERDE /NEGRO 2\"", "descripcion": "CINTA ANTIDESLIZANTE FOTOLUMINISCENTE VERDE /NEGRO 2\" X 18 M", "detalle": "18 M", "descripcionCorta": "18 M · 24 UNDS", "cantidadCajon": "24 UNDS", "precio": "99", "precioCajon": "95", "imagen": "productos/producto-44.jpg", "especificaciones": [{"label": "Material", "value": "Name: golden steel sand night light antiskid tape. Surface sand: selected emery. Base"}], "fichaTecnica": "4 FICHA TÉCNICA CINTA ANTIDESLIZANTE VERDE CON NEGRO", "imagenExtraida": "1.png"}, {"id": 45, "categoria": "Seguridad visual y pisos", "modelo": "2610", "titulo": "CINTA PVC AMARILLO / NEGRO", "descripcion": "CINTA PVC AMARILLO / NEGRO - DELIMITADORA", "detalle": "DELIMITADORA", "descripcionCorta": "DELIMITADORA · 72C UNDS", "cantidadCajon": "72C UNDS", "precio": "20", "precioCajon": "18", "imagen": "productos/producto-45.jpg", "especificaciones": [{"label": "Código", "value": "2610"}, {"label": "Material", "value": "PVC vinílico con adhesivo"}, {"label": "Color", "value": "amarillo con negro. FORMA: rectangular. PATRON: diagonal. RESISTENCIA: resistente a la humedad, químicos y solventes comunes , (excepto: cetonas, estéres e hidrocarburos)"}, {"label": "Medidas", "value": "5 cm x 33 metros. USOS: identificar y demarcar; paredes, zonas de seguridad, áreas de trabajo, puertas, ventanas de vidrio y otros, aislamiento de ductos aéreos y bajo tierra, excelente para delinear o delimitar áreas, una correcta señalización es fundamental para evitar accidentes. RECOMENDACIONES..."}, {"label": "Descripción técnica", "value": "LOGO: HIGHPOWER (importado por LA PRIMERA)"}, {"label": "Uso", "value": "La cinta deberá ser almacenada en su empaque original, en un área fría y seca, lejos de la luz directa del sol. Las superficies en las que se va a aplicar la cinta, deberán estar limpias, secas y libres de grasas, aceites u otros contaminantes. Colocar adecuadamente para una buena visión del product..."}], "fichaTecnica": "5 FICHA TÉCNICA CINTA PVC AMARILLO CON NEGRO", "imagenExtraida": "1.jpg"}, {"id": 46, "categoria": "Seguridad visual y pisos", "modelo": "2700", "titulo": "CINTA VEHICULAR REFLECTIVA ROJA / BLANCA 2\"", "descripcion": "CINTA VEHICULAR REFLECTIVA ROJA / BLANCA 2\" X 45 M", "detalle": "45 M", "descripcionCorta": "45 M · 24 UNDS", "cantidadCajon": "24 UNDS", "precio": "100", "precioCajon": "95", "imagen": "productos/producto-46.jpg", "especificaciones": [{"label": "Código", "value": "2700"}, {"label": "Material", "value": "prismático, grado diamante, autoadhesivo. RESISTENCIA: en condiciones ambientales adversas, resistente a la humedad , resistente a lavado a alta presión hasta 1200 psi. Adhesivo agresivo que garantiza l a durabilidad de su instalación, no metálico, por lo que no se corroe. LARGO: 45 metros"}, {"label": "Color", "value": "rojo /blanco"}, {"label": "Ancho", "value": "5 cm"}, {"label": "Descripción técnica", "value": "GRADO: diamante REFLECTIVIDAD: grado diamante a más de 100 mts de distancia, 24 horas del día, especialmente durante la noche, máxima brillantez, mayor angularidad (refleja angulos de casi 90 grados), de alta intensidad reflectiva"}, {"label": "Uso", "value": "de uso obligatorio y reglamentario por legislación de tránsito vigente en vehículos de transporte de pasajeros y carga, (camiones, micros, colectivos y camionetas). Apta para la VTV (verificación técnica vehicular)"}], "fichaTecnica": "8 FICHA TÉCNICA CINTA VEHICULAR ROJO CON BLANCO", "imagenExtraida": "2.jpg"}, {"id": 47, "categoria": "Seguridad visual y pisos", "modelo": "2701", "titulo": "CINTA VEHICULAR REFLECTIVA AMARILLA 2\"", "descripcion": "CINTA VEHICULAR REFLECTIVA AMARILLA 2\" X 45 M", "detalle": "45 M", "descripcionCorta": "45 M · 24 UNDS", "cantidadCajon": "24 UNDS", "precio": "100", "precioCajon": "95", "imagen": "productos/producto-47.jpg", "especificaciones": [{"label": "Código", "value": "2701"}, {"label": "Material", "value": "prismático, grado diamante, autoadhesivo. RESISTENCIA: en condiciones ambientales adversas, resistente a la humedad , resistente a lavado a alta presión hasta 1200 psi. Adhesivo agresivo que garantiza l a durabilidad de su instalación, no metálico, por lo que no se corroe. LARGO: 45 metros"}, {"label": "Color", "value": "amarillo"}, {"label": "Ancho", "value": "5 cm"}, {"label": "Descripción técnica", "value": "GRADO: diamante REFLECTIVIDAD: grado diamante a más de 100 mts de distancia, 24 horas del día, especialmente durante la noche, máxima brillantez, mayor angularidad (refleja angulos de casi 90 grados), de alta intensidad reflectiva"}, {"label": "Uso", "value": "de uso obligatorio y reglamentario por legislación de tránsito vigente en vehículos de transporte de pasajeros y carga, (camiones, micros, colectivos y camionetas). Apta para la VTV (verificación técnica vehicular)"}], "fichaTecnica": "6 FICHA TÉCNICA CINTA VEHICULAR AMARILLA PURA", "imagenExtraida": "1.jpeg"}, {"id": 48, "categoria": "Seguridad visual y pisos", "modelo": "2702", "titulo": "CINTA VEHICULAR REFLECTIVA ROJA 2\"", "descripcion": "CINTA VEHICULAR REFLECTIVA ROJA 2\" X 45 M", "detalle": "45 M", "descripcionCorta": "45 M · 24 UNDS", "cantidadCajon": "24 UNDS", "precio": "100", "precioCajon": "95", "imagen": "productos/producto-48.jpg", "especificaciones": [{"label": "Código", "value": "2702"}, {"label": "Material", "value": "prismático, grado diamante, autoadhesivo. RESISTENCIA: en condiciones ambientales adversas, resistente a la humedad , resistente a lavado a alta presión hasta 1200 psi. Adhesivo agresivo que garantiza l a durabilidad de su instalación, no metálico, por lo que no se corroe. LARGO: 45 metros"}, {"label": "Color", "value": "rojo"}, {"label": "Ancho", "value": "5 cm"}, {"label": "Descripción técnica", "value": "GRADO: diamante REFLECTIVIDAD: grado diamante a más de 100 mts de distancia, 24 horas del día, especialmente durante la noche, máxima brillantez, mayor angularidad (refleja angulos de casi 90 grados), de alta intensidad reflectiva"}, {"label": "Uso", "value": "de uso obligatorio y reglamentario por legislación de tránsito vigente en vehículos de transporte de pasajeros y carga, (camiones, micros, colectivos y camionetas). Apta para la VTV (verificación técnica vehicular)"}], "fichaTecnica": "7 FICHA TÉCNICA CINTA VEHICULAR REFLECTIVA ROJA", "imagenExtraida": "1.jpg"}, {"id": 49, "categoria": "Seguridad visual y pisos", "modelo": "2703", "titulo": "CINTA VEHICULAR REFLECTIVA BLANCA 2\"", "descripcion": "CINTA VEHICULAR REFLECTIVA BLANCA 2\" X 45 M", "detalle": "45 M", "descripcionCorta": "45 M · 24 UNDS", "cantidadCajon": "24 UNDS", "precio": "100", "precioCajon": "95", "imagen": "productos/producto-49.jpg", "especificaciones": [{"label": "Código", "value": "2703"}, {"label": "Material", "value": "prismático, grado diamante, autoadhesivo. RESISTENCIA: en condiciones ambientales adversas, resistente a la humedad , resistente a lavado a alta presión hasta 1200 psi. Adhesivo agresivo que garantiza l a durabilidad de su instalación, no metálico, por lo que no se corroe. LARGO: 45 metros"}, {"label": "Color", "value": "blanca"}, {"label": "Ancho", "value": "5 cm"}, {"label": "Descripción técnica", "value": "GRADO: diamante REFLECTIVIDAD: grado diamante a más de 100 mts de distancia, 24 horas del día, especialmente durante la noche, máxima brillantez, mayor angularidad (refleja angulos de casi 90 grados), de alta intensidad reflectiva"}, {"label": "Uso", "value": "de uso obligatorio y reglamentario por legislación de tránsito vigente en vehículos de transporte de pasajeros y carga, (camiones, micros, colectivos y camionetas). Apta para la VTV (verificación técnica vehicular)"}], "fichaTecnica": "32 FICHA TÉCNICA CINTA VEHICULAR REFLECTIVA BLANCA", "imagenExtraida": "1.jpg"}, {"id": 50, "categoria": "Seguridad visual y pisos", "modelo": "2704", "titulo": "CINTA ECONOMICA REFLECTANTE VERDE LIMON", "descripcion": "CINTA ECONOMICA REFLECTANTE VERDE LIMON 5CM X 45M - HIGHPOWER", "detalle": "5CM X 45M - HIGHPOWER", "descripcionCorta": "5CM X 45M - HIGHPOWER · 24 UNDS", "cantidadCajon": "24 UNDS", "precio": "100", "precioCajon": "95", "imagen": "productos/producto-50.jpg", "especificaciones": [{"label": "Código", "value": "2704"}, {"label": "Material", "value": "prismático, grado diamante, autoadhesivo. RESISTENCIA: en condiciones ambientales adversas, resistente a la humedad , resistente a lavado a alta presión hasta 1200 psi. Adhesivo agresivo que garantiza l a durabilidad de su instalación, no metálico, por lo que no se corroe. LARGO: 45 metros"}, {"label": "Color", "value": "amarillo"}, {"label": "Ancho", "value": "5 cm"}, {"label": "Descripción técnica", "value": "GRADO: diamante REFLECTIVIDAD: grado diamante a más de 100 mts de distancia, 24 horas del día, especialmente durante la noche, máxima brillantez, mayor angularidad (refleja angulos de casi 90 grados), de alta intensidad reflectiva"}, {"label": "Uso", "value": "de uso obligatorio y reglamentario por legislación de tránsito vigente en vehículos de transporte de pasajeros y carga, (camiones, micros, colectivos y camionetas). Apta para la VTV (verificación técnica vehicular)"}], "fichaTecnica": "34 FICHA TÉCNICA CINTA VEHICULAR REFLECTIVA VERDE", "imagenExtraida": "1.jpg"}, {"id": 51, "categoria": "Seguridad visual y pisos", "modelo": "9200", "titulo": "CINTA VEHICULAR TIPO FLECHAVERDE/ ROJO", "descripcion": "CINTA VEHICULAR TIPO FLECHAVERDE/ ROJO 2\"X 45 M", "detalle": "2\"X 45 M", "descripcionCorta": "2\"X 45 M", "cantidadCajon": "", "precio": "110", "precioCajon": "105", "imagen": "productos/producto-51.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 52, "categoria": "Seguridad visual y pisos", "modelo": "9201", "titulo": "CINTA VEHICULAR TIPO FLECHA AMARILLO/NEGRO", "descripcion": "CINTA VEHICULAR TIPO FLECHA AMARILLO/NEGRO 2\"X 45 M", "detalle": "2\"X 45 M", "descripcionCorta": "2\"X 45 M", "cantidadCajon": "", "precio": "110", "precioCajon": "105", "imagen": "productos/producto-52.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 53, "categoria": "Seguridad visual y pisos", "modelo": "9202", "titulo": "CINTA VEHICULAR TIPO FLECHA VERDE/NEGRO", "descripcion": "CINTA VEHICULAR TIPO FLECHA VERDE/NEGRO 2\"X 45 M", "detalle": "2\"X 45 M", "descripcionCorta": "2\"X 45 M", "cantidadCajon": "", "precio": "110", "precioCajon": "105", "imagen": "productos/producto-53.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 54, "categoria": "Seguridad visual y pisos", "modelo": "9203", "titulo": "CINTA VEHICULAR TIPO FLECHA ROJO/BLANCO", "descripcion": "CINTA VEHICULAR TIPO FLECHA ROJO/BLANCO 2\"X 45 M", "detalle": "2\"X 45 M", "descripcionCorta": "2\"X 45 M", "cantidadCajon": "", "precio": "110", "precioCajon": "105", "imagen": "productos/producto-54.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 55, "categoria": "Limpieza industrial", "modelo": "91688", "titulo": "BANDEJA DE ACERO 304 PARA RECEPCIÓN DE ACEITE", "descripcion": "BANDEJA DE ACERO 304 PARA RECEPCION DE ACEITE DE NAQUINARIA PESADA O ESTACIONARIA, de 1 m x 40 cm x altura 10 cm, lamina 1.20 mm de espesor, acabado satinado interior , mate parte exterior, con asas (SE PUEDE PERSONALIZAR LA MEDIA CON VARIACION DE COSTO) TIEMPO DE FABRICACION 7 DIAS- PRECIO MEJORA CON MAS 5 UNDS", "detalle": "de 1 m x 40 cm x altura 10 cm, lamina 1.20 mm de espesor, acabado satinado interior , mate parte exterior, con asas (SE PUEDE PERSONALIZAR LA MEDIA CON VARIACION DE COSTO) TIEMPO DE FABRICACION 7 DIAS- PRECIO MEJORA CON MAS 5 UNDS", "descripcionCorta": "de 1 m x 40 cm x altura 10 cm, lamina 1.20 mm de espesor, acabado satinado interior , mate parte exterior,...", "cantidadCajon": "1 UNDS", "precio": "355", "precioCajon": "355", "imagen": "productos/producto-55.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 56, "categoria": "Limpieza industrial", "modelo": "3000", "titulo": "TACHO PARA BASURA CON PEDAL EN ACERO INOXIDABLE", "descripcion": "TACHO PARA BASURA CON PEDAL EN ACERO INOXIDABLE DE 8 L", "detalle": "8 L", "descripcionCorta": "8 L", "cantidadCajon": "", "precio": "60", "precioCajon": "58", "imagen": "productos/producto-56.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 57, "categoria": "Limpieza industrial", "modelo": "3001", "titulo": "TACHO PARA BASURA CON PEDAL EN ACERO INOXIDABLE", "descripcion": "TACHO PARA BASURA CON PEDAL EN ACERO INOXIDABLE DE 12 L", "detalle": "12 L", "descripcionCorta": "12 L", "cantidadCajon": "", "precio": "70", "precioCajon": "68", "imagen": "productos/producto-57.jpg", "especificaciones": [{"label": "Código", "value": "RR4000 TACHO PARA BASURA MATERIAL ACERO"}, {"label": "Presentación", "value": "SET DE 2 PIEZAS"}, {"label": "Usos típicos", "value": "Hogar, oficina, baños, tiendas, peluquerías, bazar, ferreterías, salones de clases, etc"}, {"label": "Venta", "value": "POR MENOR Y POR MAYOR"}, {"label": "Descripción técnica", "value": "MATERIAL DE LA TAPA METAL MATERIAL DE ACABADO CROMADO ACABADO BRILLANTE COLOR PLATA ACABADO DE LA MANIJA MATE MODELO CILÍNDRICO PEDAL SI SISTEMA DE APERTURA PEDAL ANCHO DEL PRODUCTO 25 CM PROFUNDIDAD DEL PRODUCTO 33 CM ALTURA DEL PRODUCTO 39 CM PESO DEL PRODUCTO 1.7 KG"}], "fichaTecnica": "FICHA TECNICA - TACHO DE PEDAL 12 LITROS", "imagenExtraida": "ghghtyty.png"}, {"id": 58, "categoria": "Limpieza industrial", "modelo": "9062", "titulo": "TRAPEADOR DE MICROFIBRA", "descripcion": "TRAPEADOR DE MICROFIBRA - 4O CM CABEZAL", "detalle": "4O CM CABEZAL", "descripcionCorta": "4O CM CABEZAL · 24 UNDS", "cantidadCajon": "24 UNDS", "precio": "24", "precioCajon": "22", "imagen": "productos/producto-58.jpg", "especificaciones": [{"label": "Código", "value": "1500 FAMILIA: SANEAMIENTO"}, {"label": "Material", "value": "microfibra, acero y plástico. MEDIDA DEL MANGO: telescópico de acero de 75-125 cm. TIPO DEL MANGO: giratorio. CABEZAL DE FREGADERO: PP PAÑO: microfibra de alta absorción de 40 cm de largo"}, {"label": "Color", "value": "rojo, verde, azul, naranja. ENSAMBLADO: fácil armado"}, {"label": "Características", "value": "práctico, ligero y económico"}, {"label": "Presentación unitaria", "value": "CADA MANGO DE TRAPEADOR JUNTO A SU MOTA DE MICROFIBRA"}, {"label": "Marca", "value": "LIAO (importado por LA PRIMERA)"}, {"label": "Procedencia", "value": "CHINA"}], "fichaTecnica": "27 FICHA TÉCNICA TRAPEADOR DE MICROFIBRA CON MANGO RECUBIERTO DE PVC", "imagenExtraida": "1.png"}, {"id": 59, "categoria": "Limpieza industrial", "modelo": "9204", "titulo": "PAÑOS DE MICROFIBRA", "descripcion": "PAÑOS DE MICROFIBRA 220 Gr. - medida 70cm x 42cm", "detalle": "220 Gr. - medida 70cm x 42cm", "descripcionCorta": "220 Gr. - medida 70cm x 42cm · CAJA DE 100 UNDS", "cantidadCajon": "CAJA DE 100 UNDS", "precio": "42.00", "precioCajon": "38.00", "imagen": "productos/producto-59.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 60, "categoria": "Limpieza industrial", "modelo": "9204", "titulo": "PAÑOS DE MICROFIBRA", "descripcion": "PAÑOS DE MICROFIBRA 220 Gr. CON OJAL - medida 70cm x 42cm", "detalle": "220 Gr. CON OJAL - medida 70cm x 42cm", "descripcionCorta": "220 Gr. CON OJAL - medida 70cm x 42cm · CAJA DE 100 UNDS", "cantidadCajon": "CAJA DE 100 UNDS", "precio": "44.00", "precioCajon": "40.00", "imagen": "productos/producto-60.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 61, "categoria": "Limpieza industrial", "modelo": "9204", "titulo": "PAÑOS DE MICROFIBRA", "descripcion": "PAÑOS DE MICROFIBRA 220 Gr. 35cm x 42cm", "detalle": "220 Gr. 35cm x 42cm", "descripcionCorta": "220 Gr. 35cm x 42cm · CAJA DE 100 UNDS", "cantidadCajon": "CAJA DE 100 UNDS", "precio": "38.00", "precioCajon": "38.00", "imagen": "productos/producto-61.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 62, "categoria": "Limpieza industrial", "modelo": "9204", "titulo": "TRAPEADOR MOPA DE ALGODÓN ADSORVENTE", "descripcion": "TRAPEADOR MOPA DE ALGODÓN ADSORVENTE 200grs", "detalle": "200grs", "descripcionCorta": "200grs · CAJA DE 100 UNDS", "cantidadCajon": "CAJA DE 100 UNDS", "precio": "5.00", "precioCajon": "5.00", "imagen": "productos/producto-62.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 63, "categoria": "Limpieza industrial", "modelo": "9206", "titulo": "TRAPO INDUSTRIAL", "descripcion": "TRAPO INDUSTRIAL - Formado a partir de saldos de tejido de algodón de punto sin uso. Super absorbente. resistente para los trabajos con solventes comunes. espesor permite manipular objetos con temperaturas hasta 60° C", "detalle": "Formado a partir de saldos de tejido de algodón de punto sin uso. Super absorbente. resistente para los trabajos con solventes comunes. espesor permite manipular objetos con temperaturas hasta 60° C", "descripcionCorta": "Formado a partir de saldos de tejido de algodón de punto sin uso. Super absorbente. resistente para los trabajos con solventes comunes....", "cantidadCajon": "VENTA SOLO X KILO", "precio": "4.01", "precioCajon": "4.13", "imagen": "productos/producto-63.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 64, "categoria": "Dispensadores sanitarios", "modelo": "1112", "titulo": "DISPENSADOR PLASTICO ECONOMICO DE JABON", "descripcion": "DISPENSADOR PLASTICO ECONOMICO DE JABON 360 ML", "detalle": "360 ML", "descripcionCorta": "360 ML", "cantidadCajon": "", "precio": "20", "precioCajon": "18", "imagen": "productos/producto-64.jpg", "especificaciones": [{"label": "Código", "value": "1112 FAMILIA: SANEAMIENTO"}, {"label": "Material", "value": "ABS"}, {"label": "Color", "value": "blanco"}, {"label": "Capacidad", "value": "360 ml"}, {"label": "Medidas", "value": "18.5 X 7.4 X 7 cm"}, {"label": "Peso", "value": "196 gr. RENDIMIENTO: alto tránsito. RECARGABLE: sí DISPENSADOR: jabón líquido y alcohol gel. ACCESORIOS: sí INSTALACIÓN: montado en pared, madera y drywall"}, {"label": "Presentación unitaria", "value": "CADA DISPENSADOR EN CAJA"}, {"label": "Marca", "value": "LA PRIMERA"}, {"label": "Procedencia", "value": "China Adecuado para van turísticos, baños de interprovinciales, cocinas, oficinas, aulas, restaurantes, hoteles, baños y lavanderías"}], "fichaTecnica": "30 FICHA TÉCNICA DISPENSADOR DE PLASTICO GOTA PLOMA  360 ML", "imagenExtraida": "1.jpg"}, {"id": 65, "categoria": "Dispensadores sanitarios", "modelo": "1111", "titulo": "DISPENSADOR PLASTICO ECONOMICO DE JABON", "descripcion": "DISPENSADOR PLASTICO ECONOMICO DE JABON 600 ML", "detalle": "600 ML", "descripcionCorta": "600 ML · 50 UNDS", "cantidadCajon": "50 UNDS", "precio": "22", "precioCajon": "20", "imagen": "productos/producto-65.jpg", "especificaciones": [{"label": "Código", "value": "1111 FAMILIA: SANEAMIENTO"}, {"label": "Material", "value": "ABS"}, {"label": "Color", "value": "blanco"}, {"label": "Capacidad", "value": "600 ml"}, {"label": "Medidas", "value": "18.5 X 7.4 X 7 cm"}, {"label": "Peso", "value": "208 gr. RENDIMIENTO: alto tránsito. RECARGABLE: sí DISPENSADOR: jabón líquido y alcohol gel. ACCESORIOS: sí INSTALACIÓN: montado en pared, madera y drywall"}, {"label": "Presentación unitaria", "value": "CADA DISPENSADOR EN CAJA"}, {"label": "Marca", "value": "LA PRIMERA"}, {"label": "Procedencia", "value": "China Adecuado para cocinas, edificios de oficinas, aulas, familias, restaurantes, hoteles, baños y lavanderías"}], "fichaTecnica": "13 FICHA TÉCNICA DISPENSADOR DE PLASTICO GOTA PLOMA  500 ML - 2023", "imagenExtraida": "1.png"}, {"id": 66, "categoria": "Dispensadores sanitarios", "modelo": "1110", "titulo": "DISPENSADOR DE PLÁSTICO GOTA DUAL PARA JABÓN LÍQUIDO / ALCOHOL GEL", "descripcion": "DISPENSADOR DE PLÁSTICO GOTA DUAL PARA JABÓN LÍQUIDO / ALCOHOL GEL 1000 ML", "detalle": "1000 ML", "descripcionCorta": "1000 ML · 40 UNDS", "cantidadCajon": "40 UNDS", "precio": "30", "precioCajon": "28", "imagen": "productos/producto-66.jpg", "especificaciones": [{"label": "Código", "value": "1110 FAMILIA: SANEAMIENTO"}, {"label": "Material", "value": "ABS"}, {"label": "Color", "value": "blanco"}, {"label": "Capacidad", "value": "1000 – 1200 ml"}, {"label": "Medidas", "value": "16 X 10 X 8.5 cm Adecuado para cocinas, edificios de oficinas, aulas, familias, restaurantes, hoteles, baños y lavanderías"}, {"label": "Medida", "value": "25 X 12.5 X 10 cm"}, {"label": "Peso", "value": "477 gr. RENDIMIENTO: alto tránsito. RECARGABLE: sí DISPENSADOR: jabón líquido y alcohol gel. ACCESORIOS: sí INSTALACIÓN: montado en pared, madera y drywall"}, {"label": "Presentación unitaria", "value": "CADA DISPENSADOR EN CAJA"}, {"label": "Marca", "value": "LA PRIMERA"}, {"label": "Procedencia", "value": "China"}], "fichaTecnica": "29 FICHA TÉCNICA DISPENSADOR DE PLASTICO GOTA 1000 ML - 2023", "imagenExtraida": "1.jpg"}, {"id": 67, "categoria": "Dispensadores sanitarios", "modelo": "1200", "titulo": "DISPENSADOR PLASTICO DUAL DIGITAL", "descripcion": "DISPENSADOR PLASTICO DUAL DIGITAL - AUTOMATICO X 700 ML", "detalle": "AUTOMATICO X 700 ML", "descripcionCorta": "AUTOMATICO X 700 ML", "cantidadCajon": "", "precio": "60", "precioCajon": "60", "imagen": "productos/producto-67.jpg", "especificaciones": [], "fichaTecnica": "11 FICHA TÉCNICA DISPENSADOR DE PLÁSTICO DUAL AUTOMÁTICO -2023", "imagenExtraida": "1.png"}, {"id": 68, "categoria": "Dispensadores sanitarios", "modelo": "1101", "titulo": "DISPENSADOR PLASTICO ECONOMICO", "descripcion": "DISPENSADOR PLASTICO ECONOMICO X 500 ML TRANSPARENTE", "detalle": "500 ML TRANSPARENTE", "descripcionCorta": "500 ML TRANSPARENTE", "cantidadCajon": "", "precio": "12", "precioCajon": "10", "imagen": "productos/producto-68.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 69, "categoria": "Dispensadores sanitarios", "modelo": "1102", "titulo": "DISPENSADOR PLASTICO ECONOMICO CUBO TRANSPARENTE", "descripcion": "DISPENSADOR PLASTICO ECONOMICO CUBO TRANSPARENTE X 1000 ML", "detalle": "1000 ML", "descripcionCorta": "1000 ML", "cantidadCajon": "", "precio": "24", "precioCajon": "22", "imagen": "productos/producto-69.jpg", "especificaciones": [], "fichaTecnica": "37  FICHA TÉCNICA  DISPENSADOR DE PLÁSTICO CUBO DE JABON LIQUIDO Y ALCOHOL DE 1 LT - 2023", "imagenExtraida": "1.jpg"}, {"id": 70, "categoria": "Dispensadores sanitarios", "modelo": "1120", "titulo": "DISPENSADOR DE JABON ACERO BRILLANTE", "descripcion": "DISPENSADOR DE JABON ACERO BRILLANTE 500 ML", "detalle": "500 ML", "descripcionCorta": "500 ML", "cantidadCajon": "", "precio": "45", "precioCajon": "42", "imagen": "productos/producto-70.jpg", "especificaciones": [{"label": "Código", "value": "1120 FAMILIA: SANEAMIENTO"}, {"label": "Material", "value": "acero inoxidable 304"}, {"label": "Color", "value": "pulido brillante"}, {"label": "Capacidad", "value": "500 – 600 ml"}, {"label": "Medidas", "value": "14.5 X 9 X 5 cm"}, {"label": "Peso", "value": "192 gr. RENDIMIENTO: mediano tránsito. RECARGABLE: sí DISPENSADOR: jabón líquido y alcohol gel. ACCESORIOS: sí INSTALACIÓN: montado en pared, madera y drywall"}, {"label": "Presentación unitaria", "value": "CADA DISPENSADOR EN CAJA"}, {"label": "Marca", "value": "LA PRIMERA"}, {"label": "Procedencia", "value": "China Adecuado para cocinas, edificios de oficinas, aulas, familias, restaurantes, hoteles, baños y lavanderías"}], "fichaTecnica": "9 FICHA TÉCNICA DISPENSADOR DE ACERO PESADO PARA JABÓN 500 ML - 2023", "imagenExtraida": "1.jpg"}, {"id": 71, "categoria": "Dispensadores sanitarios", "modelo": "1130", "titulo": "DISPENSADOR DE JABON ACERO BRILLANTE", "descripcion": "DISPENSADOR DE JABON ACERO BRILLANTE 1000 ML", "detalle": "1000 ML", "descripcionCorta": "1000 ML", "cantidadCajon": "", "precio": "58", "precioCajon": "55", "imagen": "productos/producto-71.jpg", "especificaciones": [{"label": "Código", "value": "1130 FAMILIA: SANEAMIENTO"}, {"label": "Material", "value": "acero inoxidable 304"}, {"label": "Color", "value": "pulido brillante"}, {"label": "Capacidad", "value": "1000 – 1200 ml"}, {"label": "Medidas", "value": "20.5 X 12 X 6 cm"}, {"label": "Peso", "value": "360 gr. RENDIMIENTO: alto tránsito. RECARGABLE: sí DISPENSADOR: jabón liquido y alcohol gel. ACCESORIOS: sí INSTALACIÓN: montado en pared, madera y drywall"}, {"label": "Presentación unitaria", "value": "CADA DISPENSADOR EN CAJA"}, {"label": "Marca", "value": "LA PRIMERA"}, {"label": "Procedencia", "value": "China Adecuado para cocinas, edificios de oficinas, aulas, familias, restaurantes, hoteles, baños y lavanderías"}], "fichaTecnica": "10 FICHA TÉCNICA DISPENSADOR DE ACERO PESADO PARA JABÓN 1000 ML - 2023", "imagenExtraida": "1.jpg"}, {"id": 72, "categoria": "Dispensadores sanitarios", "modelo": "1400", "titulo": "DISPENSADOR PLASTICO ECONOMICO DE PAPEL JUMBO BLANCO", "descripcion": "DISPENSADOR PLASTICO ECONOMICO DE PAPEL JUMBO BLANCO", "detalle": "", "descripcionCorta": "20 UNDS", "cantidadCajon": "20 UNDS", "precio": "28", "precioCajon": "26", "imagen": "productos/producto-72.jpg", "especificaciones": [{"label": "Código", "value": "1400 FAMILIA: SANEAMIENTO"}, {"label": "Material", "value": "ABS"}, {"label": "Color", "value": "blanco. RENDIMIENTO: alto tránsito"}, {"label": "Medida", "value": "27 X 27 X 12 cm"}, {"label": "Peso", "value": "572 gr. RECARGABLE: sí DISPENSADOR: papel higiénico jumbo. ACCESORIOS: sí INSTALACIÓN: montado en pared, madera y drywall"}, {"label": "Características", "value": "práctico, ligero y económico"}, {"label": "Presentación unitaria", "value": "CADA DISPENSADOR EN CAJA"}, {"label": "Marca", "value": "LA PRIMERA"}, {"label": "Procedencia", "value": "China Adecuado para cocinas, hogares, restaurantes, hoteles, bares, consultorios, barberías, peluquerías, consultorios médicos, discotecas, baños y lavanderías"}], "fichaTecnica": "17 FICHA TÉCNICA DISPENSADOR PLASTICO ECONÓNICO DE PAPEL JUMBO BLANCO - 2023", "imagenExtraida": "1.png"}, {"id": 73, "categoria": "Dispensadores sanitarios", "modelo": "1401", "titulo": "DISPENSADOR PLASTICO ECONOMICO DE PAPEL JUMBO TAPA NEGRA", "descripcion": "DISPENSADOR PLASTICO ECONOMICO DE PAPEL JUMBO TAPA NEGRA", "detalle": "", "descripcionCorta": "20 UNDS", "cantidadCajon": "20 UNDS", "precio": "28", "precioCajon": "26", "imagen": "productos/producto-73.jpg", "especificaciones": [], "fichaTecnica": "20 FICHA TÉCNICA DISPENSADOR PLASTICO ECONÓNICO DE PAPEL JUMBO TAPA NEGRA - 2023", "imagenExtraida": "1.png"}, {"id": 74, "categoria": "Dispensadores sanitarios", "modelo": "1403", "titulo": "DISPENSADOR METAL DE PAPEL JUMBO BRILLANTE", "descripcion": "DISPENSADOR METAL DE PAPEL JUMBO BRILLANTE", "detalle": "", "descripcionCorta": "20 UNDS", "cantidadCajon": "20 UNDS", "precio": "60", "precioCajon": "55", "imagen": "productos/producto-74.jpg", "especificaciones": [{"label": "Código", "value": "1403 FAMILIA: SANEAMIENTO"}, {"label": "Material", "value": "acero SS201"}, {"label": "Color", "value": "pulido brillante (espejo). RENDIMIENTO: alto tránsito"}, {"label": "Medida", "value": "25 X 26 X 11.5 cm"}, {"label": "Peso", "value": "1.046 Kg. RECARGABLE: sí DISPENSADOR: papel higiénico jumbo. ACCESORIOS: sí INSTALACIÓN: montado en pared, madera y drywall"}, {"label": "Características", "value": "práctico y elegante. Adecuado para cocinas, hogares, restaurantes, hoteles, bares, consultorios, barberías, peluquerías, consultorios médicos, discotecas, baños y lavanderías"}, {"label": "Presentación unitaria", "value": "CADA DISPENSADOR EN CAJA"}, {"label": "Marca", "value": "LA PRIMERA"}, {"label": "Procedencia", "value": "China"}], "fichaTecnica": "18 FICHA TÉCNICA DISPENSADOR ECONÓNICO DE PAPEL JUMBO PESADO DE ACERO BRILLANTE - 2023", "imagenExtraida": "1.png"}, {"id": 75, "categoria": "Dispensadores sanitarios", "modelo": "1402", "titulo": "DISPENSADOR DE PAPEL JUMBO REDONDO ACERO MATE", "descripcion": "DISPENSADOR DE PAPEL JUMBO REDONDO ACERO MATE", "detalle": "", "descripcionCorta": "20 UNDS", "cantidadCajon": "20 UNDS", "precio": "65", "precioCajon": "63", "imagen": "productos/producto-75.jpg", "especificaciones": [], "fichaTecnica": "19 FICHA TÉCNICA DISPENSADO ECONÓNICO DE PAPEL JUMBO PESADO DE ACERO MATE  - 2023", "imagenExtraida": "1.jpg"}, {"id": 76, "categoria": "Dispensadores sanitarios", "modelo": "1300", "titulo": "DISPENSADOR PLÁSTICO DE PAPEL INTERFOLIADO BLANCO", "descripcion": "DISPENSADOR PLASTICO ECONOMICO DE PAPEL INTERFOLIADO -BLANCO", "detalle": "", "descripcionCorta": "20 UNDS", "cantidadCajon": "20 UNDS", "precio": "28", "precioCajon": "26", "imagen": "productos/producto-76.jpg", "especificaciones": [], "fichaTecnica": "15 FICHA TÉCNICA DISPENSADOR PLÁSTICO PARA PAPEL TOALLA INTERFOLIADO BLANCO - 2023", "imagenExtraida": "1.png"}, {"id": 77, "categoria": "Dispensadores sanitarios", "modelo": "1310", "titulo": "DISPENSADOR METALICO DE PAPEL INTERFOLIADO MATE", "descripcion": "DISPENSADOR METALICO DE PAPEL INTERFOLIADO MATE", "detalle": "", "descripcionCorta": "20 UNDS", "cantidadCajon": "20 UNDS", "precio": "70", "precioCajon": "68", "imagen": "productos/producto-77.jpg", "especificaciones": [], "fichaTecnica": "28 FICHA TÉCNICA DISPENSADOR DE ACERO MATE  DE PAPEL TOALLA INTERFOLIADO - 2023", "imagenExtraida": "44444.png"}, {"id": 78, "categoria": "Dispensadores sanitarios", "modelo": "9070", "titulo": "SECADOR DE MANOS VELOSTER", "descripcion": "SECADOR DE MANOS VELOSTER - AIRE CALIENTE - SENSOR", "detalle": "AIRE CALIENTE - SENSOR", "descripcionCorta": "AIRE CALIENTE - SENSOR", "cantidadCajon": "", "precio": "300", "precioCajon": "280", "imagen": "productos/producto-78.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 79, "categoria": "Dispensadores sanitarios", "modelo": "9071", "titulo": "SECADOR DE MANOS RECTANGULAR", "descripcion": "SECADOR DE MANOS RECTANGULAR - AIRE FRIO/CALIENTE - SENSOR", "detalle": "AIRE FRIO/CALIENTE - SENSOR", "descripcionCorta": "AIRE FRIO/CALIENTE - SENSOR", "cantidadCajon": "", "precio": "350", "precioCajon": "330", "imagen": "productos/producto-79.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 80, "categoria": "Dispensadores sanitarios", "modelo": "9072", "titulo": "SECADOR DE MANOS CURVO", "descripcion": "SECADOR DE MANOS CURVO - AIRE FRIO/CALIENTE - SENSOR", "detalle": "AIRE FRIO/CALIENTE - SENSOR", "descripcionCorta": "AIRE FRIO/CALIENTE - SENSOR", "cantidadCajon": "", "precio": "250", "precioCajon": "220", "imagen": "productos/producto-80.jpg", "especificaciones": [], "fichaTecnica": ""}, {"id": 81, "categoria": "Dispensadores sanitarios", "modelo": "9073", "titulo": "SECADOR DE MANOS CLASICO", "descripcion": "SECADOR DE MANOS CLASICO - SENSOR INFRAROJO", "detalle": "SENSOR INFRAROJO", "descripcionCorta": "SENSOR INFRAROJO", "cantidadCajon": "", "precio": "450", "precioCajon": "430", "imagen": "productos/producto-81.jpg", "especificaciones": [], "fichaTecnica": ""}];
+    let selectedProduct = products[0];
+    let selectedVariantIndex = 0;
+    let selectedGroupId = products[0].id;
+    let quickTerms = [];
+    let quickExcludedTerms = [];
+    let selectedCategory = '';
+    const categoryDefinitions = [
+      { name: 'Ver todos', terms: [], category: '', image: 'imagenes/rubros/ver-todos.png' },
+      { name: 'Protección de manos', terms: ['guante'], category: '', image: 'imagenes/rubros/proteccion-manos.png' },
+      { name: 'Protección facial y respiratoria', terms: ['protector facial', 'mascarilla', 'filtro', 'media cara', '2097', '6003'], category: '', image: 'imagenes/rubros/proteccion-facial.png' },
+      { name: 'Botas de seguridad', terms: ['botin', 'bota'], category: '', image: 'imagenes/rubros/botas-seguridad.png' },
+      { name: 'Protección auditiva', terms: ['orejera', 'tapón', 'tapon', 'oído', 'oido'], category: '', image: 'imagenes/rubros/proteccion-auditiva.png' },
+      { name: 'Señalización', terms: ['cinta', 'cono', 'señal', 'vara', 'tablero', 'bandeja'], exclude: ['bota', 'botin', 'arnes', 'dispensador', 'lente', 'lentes'], category: '', image: 'imagenes/rubros/senalizacion.png' },
+      { name: 'Dispensadores sanitarios', terms: ['dispensador', 'microfibra', 'trapo', 'trapeador'], category: '', image: 'imagenes/rubros/sanitarios.png' },
+      { name: 'Minera', terms: ['arnes'], category: '', image: 'imagenes/rubros/minera.png' },
+      { name: 'Protección corporal', terms: ['chaleco', 'traje', 'poncho'], category: '', image: 'imagenes/rubros/proteccion-corporal.png' }
+    ];
+
+    // Remove the discontinued brand word from every catalog text.
+    const removeFlexyplus = value => {
+      if (typeof value === 'string') return value.replace(/flexyplus/gi, '').replace(/\s{2,}/g, ' ').trim();
+      if (Array.isArray(value)) return value.map(removeFlexyplus);
+      if (value && typeof value === 'object') {
+        Object.keys(value).forEach(key => { value[key] = removeFlexyplus(value[key]); });
+      }
+      return value;
+    };
+    products.forEach(removeFlexyplus);
+
+    function groupProductOptions(primaryId, optionIds, title, labels) {
+      const primary = products.find(product => product.id === primaryId);
+      if (!primary) return;
+      primary.tituloGrupo = title;
+      primary.grupoId = primaryId;
+      primary.titulo = title;
+      primary.variantes = optionIds.map((id, index) => {
+        const option = products.find(product => product.id === id);
+        return { ...option, opcion: labels[index] };
+      });
+      optionIds.slice(1).forEach(id => {
+        const option = products.find(product => product.id === id);
+        if (option) option.ocultarEnCatalogo = true;
+      });
+    }
+
+    groupProductOptions(30, [30, 31], 'CONO RÍGIDO DE TRÁFICO', ['28 pulgadas', '36 pulgadas']);
+    groupProductOptions(59, [59, 60, 61], 'PAÑOS DE MICROFIBRA', ['70 x 42 cm', '70 x 42 cm con ojal', '35 x 42 cm']);
+    groupProductOptions(51, [51, 52, 53, 54], 'CINTA VEHICULAR TIPO FLECHA', ['Verde / rojo', 'Amarillo / negro', 'Verde / negro', 'Rojo / blanco']);
+    groupProductOptions(56, [56, 57], 'TACHO PARA BASURA CON PEDAL EN ACERO INOXIDABLE', ['8 L', '12 L']);
+    const pedalBin = products.find(product => product.id === 56);
+    const pedalBin12L = products.find(product => product.id === 57);
+    if (pedalBin && pedalBin12L) {
+      const sharedImage = pedalBin12L.imagen;
+      const sharedSpecifications = pedalBin12L.especificaciones;
+      const sharedTechnicalSheet = pedalBin12L.fichaTecnica;
+      pedalBin.imagen = sharedImage;
+      pedalBin.especificaciones = sharedSpecifications;
+      pedalBin.fichaTecnica = sharedTechnicalSheet;
+      pedalBin.variantes.forEach(option => {
+        option.imagen = sharedImage;
+        option.especificaciones = sharedSpecifications;
+        option.fichaTecnica = sharedTechnicalSheet;
+      });
+    }
+
+    const catalogView = document.getElementById('catalogView');
+    const detailView = document.getElementById('detailView');
+    const checkoutView = document.getElementById('checkoutView');
+    const claimView = document.getElementById('claimView');
+    const categoryGrid = document.getElementById('categoryGrid');
+    const productGrid = document.getElementById('productGrid');
+    const resultCount = document.getElementById('resultCount');
+
+    function showView(view) {
+      [catalogView, detailView, checkoutView, claimView].forEach(item => item.classList.remove('active'));
+      view.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openQrPreview() {
+      document.getElementById('qrModal').classList.add('active');
+    }
+
+    function closeQrPreview() {
+      document.getElementById('qrModal').classList.remove('active');
+    }
+
+    function showCatalog() {
+      showView(catalogView);
+    }
+
+    function showClaims() {
+      showView(claimView);
+    }
+
+    function acceptCookies() {
+      localStorage.setItem('laPrimeraCookiesAccepted', '1');
+      document.getElementById('cookieBanner').classList.remove('active');
+    }
+
+    function productImage(item) {
+      return item.imagen;
+    }
+
+    function fallbackText(item) {
+      return item.categoria.split(/\s+/).slice(0, 2).map(word => word[0]).join('').toUpperCase();
+    }
+
+    function money(value) {
+      if (!value) return 'Consultar';
+      const raw = String(value).replace(/[^0-9.,]/g, '').trim();
+      return raw ? `S/ ${raw}` : 'Consultar';
+    }
+
+    function matchesFilter(item, terms, category, excludedTerms = []) {
+        const haystack = `${item.categoria} ${item.modelo} ${item.titulo} ${item.descripcion}`.toLowerCase();
+        const quickMatch = !terms.length || terms.some(keyword => haystack.includes(keyword));
+        const hasExcludedTerm = excludedTerms.some(keyword => haystack.includes(keyword));
+        return (!category || item.categoria === category) && quickMatch && !hasExcludedTerm;
+    }
+
+    function categoryIcon(index) {
+      const group = categoryDefinitions[index] || categoryDefinitions[0];
+      const source = index === 0
+        ? 'https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/layout-grid.svg'
+        : `${group.image}?v=20260727`;
+      return `<img class="category-vector" src="${source}" alt="${group.name}">`;
+    }
+
+    function renderCategoryGrid() {
+      categoryGrid.innerHTML = categoryDefinitions.map((group, index) => {
+        const matches = group.name === 'Ver todos' ? products : products.filter(item => matchesFilter(item, group.terms, group.category));
+        const isActive = selectedCategory === group.category && quickTerms.join('|') === group.terms.join('|');
+        return `
+          <button class="rubro-card rubro-button${isActive ? ' active' : ''}" type="button" onclick="selectRubro(${index})" aria-label="Ver ${group.name}">
+            ${categoryIcon(index)}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function shortDescription(item) {
+      const forbidden = /\(\s*precio\s*x\s*docena\s*\)|\s*-\s*kevin\b|\b(?:300|480|600)\s*unds?\b|\bx\s*docena\b|consulta\s+disponibilidad|presentaci[oó]n\s+y\s+stock|caja\s+de\s+100\s+unidades\s*,?\s*2?\b/gi;
+      let text = String(item.detalle || item.descripcionCorta || '').replace(forbidden, '').replace(/\s{2,}/g, ' ').replace(/^[\s,;:–-]+|[\s,;:–-]+$/g, '').trim();
+      if (!text || /^[.2,;:]+$/.test(text)) return '';
+      const firstSentenceMatch = text.match(/^.*?[.!?](?=\s|$)/);
+      const firstSentence = firstSentenceMatch ? firstSentenceMatch[0] : text;
+      return firstSentence.length > 100 ? `${firstSentence.slice(0, 97).trim()}...` : firstSentence;
+    }
+
+    function renderProducts() {
+      const filtered = products.filter(item => !item.ocultarEnCatalogo && matchesFilter(item, quickTerms, selectedCategory, quickExcludedTerms));
+      resultCount.textContent = `${filtered.length} producto${filtered.length === 1 ? '' : 's'}`;
+      productGrid.innerHTML = filtered.map(item => `
+        <article class="product-card${item.id >= 78 && item.id <= 81 ? ' dryer-card' : ''}" data-description="${shortDescription(item)}" onclick="showDetail(${item.id})" tabindex="0" role="button" aria-label="Ver ${item.descripcion}">
+          <div class="product-image">
+            <img src="${productImage(item)}" alt="${item.descripcion}" loading="lazy" onerror="this.parentElement.classList.add('missing')">
+            <span class="fallback">${fallbackText(item)}</span>
+          </div>
+          <h3 class="product-name">${item.titulo}</h3>
+        </article>
+      `).join('');
+    }
+
+    function applySelectedVariant(index) {
+      if (!selectedProduct.variantes) return;
+      selectedVariantIndex = Math.max(0, Math.min(index, selectedProduct.variantes.length - 1));
+      const groupId = selectedGroupId || selectedProduct.grupoId || selectedProduct.id;
+      const mainImage = selectedProduct.imagen;
+      const { id, grupoId, tituloGrupo, variantes, imagen, ...variantData } = selectedProduct.variantes[selectedVariantIndex];
+      Object.assign(selectedProduct, variantData);
+      selectedProduct.id = groupId;
+      selectedProduct.grupoId = groupId;
+      selectedProduct.imagen = mainImage;
+      selectedProduct.tituloGrupo = tituloGrupo || selectedProduct.tituloGrupo;
+      selectedProduct.variantes = variantes || selectedProduct.variantes;
+      selectedProduct.titulo = selectedProduct.tituloGrupo;
+    }
+
+    function selectPurchaseOption(index) {
+      applySelectedVariant(index);
+      showDetail(selectedGroupId, true);
+    }
+
+    function showDetail(id, keepOption = false) {
+      if (!keepOption) selectedGroupId = Number(id);
+      selectedProduct = products.find(item => item.id === selectedGroupId) || products[0];
+      if (selectedProduct.variantes) applySelectedVariant(keepOption ? selectedVariantIndex : 0);
+      const hasTechnicalSpecs = Boolean(selectedProduct.especificaciones && selectedProduct.especificaciones.length);
+      const variantPicker = selectedProduct.variantes ? `
+        <div class="variant-options">
+          <strong>Elige una opcion:</strong>
+          <div>${selectedProduct.variantes.map((variant, index) => `<button class="variant-option${index === selectedVariantIndex ? ' active' : ''}" type="button" onclick="selectPurchaseOption(${index})">${variant.opcion}</button>`).join('')}</div>
+        </div>` : '';
+      document.getElementById('detailCard').innerHTML = `
+        <div class="detail-media${selectedProduct.id >= 78 && selectedProduct.id <= 81 ? ' dryer-detail' : ''}">
+          <img src="${productImage(selectedProduct)}" alt="${selectedProduct.descripcion}" onerror="this.parentElement.classList.add('missing')">
+          <span class="fallback">${fallbackText(selectedProduct)}</span>
+        </div>
+        <div class="detail-content">
+          <div class="tag-row">
+            <span class="tag">${selectedProduct.categoria}</span>
+            ${selectedProduct.modelo && !hasTechnicalSpecs ? `<span class="tag">Modelo ${selectedProduct.modelo}</span>` : ''}
+            ${hasTechnicalSpecs ? '<span class="tag">Ficha técnica verificada</span>' : ''}
+          </div>
+          <h2>${selectedProduct.titulo}</h2>
+          ${variantPicker}
+          <p class="note">${selectedProduct.detalle || selectedProduct.descripcionCorta}</p>
+          <div class="spec-grid">
+            <div class="spec"><span>Categoría</span><strong>${selectedProduct.categoria}</strong></div>
+            ${!hasTechnicalSpecs ? `<div class="spec"><span>Modelo</span><strong>${selectedProduct.modelo || 'Consultar'}</strong></div>` : ''}
+            ${selectedProduct.cantidadCajon ? `<div class="spec"><span>Cantidad por cajón</span><strong>${selectedProduct.cantidadCajon}</strong></div>` : ''}
+            <div class="spec"><span>Precio</span><strong>${money(selectedProduct.precio)}</strong></div>
+            ${selectedProduct.precioCajon ? `<div class="spec"><span>Precio por cajón</span><strong>${money(selectedProduct.precioCajon)}</strong></div>` : ''}
+            <div class="spec"><span>IGV</span><strong>Incluido</strong></div>
+          </div>
+          ${hasTechnicalSpecs ? `
+            <section class="technical-sheet" aria-labelledby="technicalTitle">
+              <h3 id="technicalTitle">Especificaciones técnicas</h3>
+              <dl class="technical-list">
+                ${selectedProduct.especificaciones.map(spec => `
+                  <div class="technical-item">
+                    <dt>${spec.label}</dt>
+                    <dd>${spec.value}</dd>
+                  </div>
+                `).join('')}
+              </dl>
+            </section>
+          ` : ''}
+          <button class="btn btn-orange" type="button" onclick="buyOnWhatsApp()">Comprar ahora por WhatsApp</button>
+        </div>
+      `;
+      showView(detailView);
+    }
+
+    function showCheckout() {
+      document.getElementById('unitType').innerHTML = `
+        <option value="Compra regular">Compra regular</option>
+        ${selectedProduct.precioCajon ? '<option value="Compra por cajón">Compra por cajón</option>' : ''}
+      `;
+      document.getElementById('checkoutSummary').innerHTML = `
+        <div class="summary-item">
+          <img src="${productImage(selectedProduct)}" alt="${selectedProduct.descripcion}" onerror="this.style.display='none'">
+          <h3>${selectedProduct.titulo}</h3>
+          <span class="tag">${selectedProduct.categoria}</span>
+          <div class="summary-total">
+            <div><span>Precio</span><strong>${money(selectedProduct.precio)}</strong></div>
+            ${selectedProduct.precioCajon ? `<div><span>Precio por cajón</span><strong>${money(selectedProduct.precioCajon)}</strong></div>` : ''}
+            ${selectedProduct.cantidadCajon ? `<div><span>Cantidad por cajón</span><strong>${selectedProduct.cantidadCajon}</strong></div>` : ''}
+            <div><span>Recojo</span><strong>Plaza Ferretero 2058A</strong></div>
+          </div>
+          <p class="note">El total final se confirma por WhatsApp según cantidad, stock, modalidad de compra y envío.</p>
+        </div>
+      `;
+      showView(checkoutView);
+    }
+
+    function clearFilters(activeButton = null) {
+      selectedCategory = '';
+      quickTerms = [];
+      renderCategoryGrid();
+      renderProducts();
+    }
+
+    function quickFilter(button, terms, category = '') {
+      selectedCategory = category;
+      quickTerms = terms.map(term => term.toLowerCase());
+      quickExcludedTerms = [];
+      renderCategoryGrid();
+      renderProducts();
+      document.querySelector('.store-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function selectRubro(index) {
+      const group = categoryDefinitions[index] || categoryDefinitions[0];
+      selectedCategory = group.category;
+      quickTerms = group.terms.map(term => term.toLowerCase());
+      quickExcludedTerms = (group.exclude || []).map(term => term.toLowerCase());
+      renderCategoryGrid();
+      renderProducts();
+      document.querySelector('.store-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.querySelectorAll('input[name="deliveryType"]').forEach(input => {
+      input.addEventListener('change', () => {
+        const show = document.querySelector('input[name="deliveryType"]:checked').value === 'Envío';
+        document.getElementById('deliveryFields').classList.toggle('active', show);
+      });
+    });
+
+    document.getElementById('checkoutForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
+      const paymentType = document.querySelector('input[name="paymentType"]:checked').value;
+      const message = [
+        'Hola LA PRIMERA, deseo comprar este producto:',
+        '',
+        `Producto: ${selectedProduct.titulo}`,
+        selectedProduct.opcion ? `Opción: ${selectedProduct.opcion}` : '',
+        `Especificaciones: ${selectedProduct.detalle || selectedProduct.descripcionCorta}`,
+        `Modelo: ${selectedProduct.modelo || 'Consultar'}`,
+        `Categoría: ${selectedProduct.categoria}`,
+        `Cantidad: ${document.getElementById('quantity').value}`,
+        `Modalidad: ${document.getElementById('unitType').value}`,
+        `Precio: ${money(selectedProduct.precio)}`,
+        selectedProduct.precioCajon ? `Precio por cajón: ${money(selectedProduct.precioCajon)}` : '',
+        selectedProduct.cantidadCajon ? `Cantidad por cajón: ${selectedProduct.cantidadCajon}` : '',
+        '',
+        `Cliente: ${document.getElementById('buyerName').value}`,
+        `DNI/RUC: ${document.getElementById('buyerDoc').value}`,
+        `Celular: ${document.getElementById('buyerPhone').value}`,
+        `Email: ${document.getElementById('buyerEmail').value}`,
+        '',
+        `Entrega: ${deliveryType}`,
+        deliveryType === 'Envío' ? `Agencia: ${document.getElementById('agency').value}` : 'Recojo en tienda: Cc Plaza Ferretero, tienda 2058A',
+        deliveryType === 'Envío' ? `Recibe: ${document.getElementById('receiverName').value}` : '',
+        deliveryType === 'Envío' ? `DNI receptor: ${document.getElementById('receiverDoc').value}` : '',
+        deliveryType === 'Envío' ? `Celular receptor: ${document.getElementById('receiverPhone').value}` : '',
+        deliveryType === 'Envío' ? `Destino/agencia: ${document.getElementById('destination').value}` : '',
+        deliveryType === 'Envío' ? `Indicaciones: ${document.getElementById('deliveryNotes').value}` : '',
+        '',
+        `Pago: ${paymentType}`,
+        'Quedo atento(a) a la confirmación de stock y total final.'
+      ].filter(Boolean).join('\n');
+      window.open(`https://wa.me/51933069741?text=${encodeURIComponent(message)}`, '_blank');
+    });
+
+    document.getElementById('claimForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const message = [
+        'Hola LA PRIMERA, deseo registrar una solicitud en el Libro de Reclamaciones:',
+        '',
+        `Tipo: ${document.getElementById('claimType').value}`,
+        `Nombre: ${document.getElementById('claimName').value}`,
+        `Documento: ${document.getElementById('claimDoc').value}`,
+        `Celular: ${document.getElementById('claimPhone').value}`,
+        `Correo: ${document.getElementById('claimEmail').value || 'No indicado'}`,
+        `Producto / pedido: ${document.getElementById('claimOrder').value || 'No indicado'}`,
+        '',
+        `Detalle: ${document.getElementById('claimDetail').value}`,
+        `Pedido del consumidor: ${document.getElementById('claimRequest').value}`
+      ].join('\n');
+      window.open(`https://wa.me/51933069741?text=${encodeURIComponent(message)}`, '_blank');
+    });
+
+    function buyOnWhatsApp() {
+      const option = selectedProduct.opcion ? ` Opción: ${selectedProduct.opcion}.` : '';
+      const message = `Hola LA PRIMERA, deseo consultar y comprar el producto: ${selectedProduct.titulo}.${option} Modelo: ${selectedProduct.modelo || 'Consultar'}.`;
+      window.open(`https://wa.me/51993346812?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    renderCategoryGrid();
+    renderProducts();
+    if (!localStorage.getItem('laPrimeraCookiesAccepted')) {
+      document.getElementById('cookieBanner').classList.add('active');
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js" defer></script>
+  <script>
+    (function () {
+      const whatsapp = '51993346812';
+      const repairEncoding = root => {
+        const decode = value => {
+          if (!value || (!value.includes('Ã') && !value.includes('Â'))) return value;
+          try { return decodeURIComponent(escape(value)); } catch (_) { return value; }
+        };
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach(node => { node.nodeValue = decode(node.nodeValue); });
+        root.querySelectorAll('*').forEach(el => {
+          ['alt', 'aria-label', 'placeholder', 'title'].forEach(attribute => {
+            if (el.hasAttribute(attribute)) el.setAttribute(attribute, decode(el.getAttribute(attribute)));
+          });
+        });
+      };
+      repairEncoding(document.body);
+      const normalizeData = value => {
+        if (typeof value === 'string') {
+          if (!value.includes('Ã') && !value.includes('Â')) return value;
+          try { return decodeURIComponent(escape(value)); } catch (_) { return value; }
+        }
+        if (Array.isArray(value)) return value.map(normalizeData);
+        if (value && typeof value === 'object') {
+          Object.keys(value).forEach(key => { value[key] = normalizeData(value[key]); });
+        }
+        return value;
+      };
+      normalizeData(products);
+      normalizeData(categoryDefinitions);
+      products.forEach(item => {
+        const title = String(item.titulo || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+        if (title.includes('BARRA RETRACTIL')) {
+          item.detalle = 'Barra retráctil para delimitar accesos y organizar espacios.';
+          item.descripcionCorta = item.detalle;
+        }
+        if (title.includes('BANDEJA DE ACERO 304 PARA RECEPCION DE ACEITE')) {
+          item.detalle = 'Bandeja de acero inoxidable 304 para la recepción segura de aceite.';
+          item.descripcionCorta = item.detalle;
+        }
+        if (title.includes('FILTRO 2097 / 6003') || title.includes('CINTA VEHICULAR TIPO FLECHA')) {
+          item.detalle = '';
+          item.descripcionCorta = '';
+        }
+      });
+      renderCategoryGrid();
+      renderProducts();
+      const checkoutViewToRemove = document.getElementById('checkoutView');
+      if (checkoutViewToRemove) checkoutViewToRemove.remove();
+      document.querySelectorAll('.floating-whatsapp').forEach((link, index) => {
+        if (index) link.remove();
+        else {
+          link.href = `https://wa.me/${whatsapp}`;
+          link.setAttribute('aria-label', 'WhatsApp 993 346 812');
+        }
+      });
+
+      const rubros = document.querySelector('.rubros-kicker');
+      if (rubros) rubros.textContent = 'Categorías';
+      const stock = document.querySelector('.stock-note');
+      if (stock) stock.remove();
+
+      const footer = document.querySelector('.company-foot');
+      if (footer) footer.innerHTML = `<strong>LA PRIMERA</strong><span>Comercializadores, importadores y distribuidores de artículos de seguridad industrial y sanitarios.</span><span><b>RUC:</b> 10257902043</span><span class="visit-counter"><b>Visitas:</b> <span id="visitCount">Cargando...</span></span><span>© TODOS LOS DERECHOS RESERVADOS</span>`;
+
+      window.addEventListener('load', function () {
+        if (typeof Counter !== 'function') return;
+        const visitCounter = new Counter({ workspace: 'la-primera-tienda-peru-2026' });
+        visitCounter.up('visitas').then(function (result) {
+          const count = document.getElementById('visitCount');
+          if (count) count.textContent = Number(result.value || 0).toLocaleString('es-PE');
+        }).catch(function () {
+          const count = document.getElementById('visitCount');
+          if (count) count.textContent = 'No disponible';
+        });
+      });
+
+      const originalShowDetail = window.showDetail;
+      window.showDetail = function (id, keepOption) {
+        originalShowDetail(id, keepOption);
+        const card = document.getElementById('detailCard');
+        repairEncoding(card);
+        const sheet = card.querySelector('.technical-sheet');
+        const grid = card.querySelector('.spec-grid');
+        if (sheet && grid) card.querySelector('.detail-content').insertBefore(grid, sheet);
+        if (grid) {
+          [...grid.querySelectorAll('.spec')].forEach(item => {
+            const labelElement = item.querySelector('span');
+            const label = labelElement ? labelElement.textContent.trim().toLowerCase() : '';
+            if ((label && label.startsWith('categor')) || label === 'igv') item.remove();
+          });
+          const payment = document.createElement('section');
+          payment.className = 'payment-details';
+          payment.innerHTML = `<div class="qr-stack"><button class="qr-trigger" type="button" onclick="openQrPreview()" aria-label="Ampliar código QR de Plin"><img class="qr" src="pagos/qr-plin.png" alt="Código QR de Plin"></button><img class="plin-contact" src="pagos/plin-contacto.jpeg" alt="Plin: 993-346-812"></div><div><p><b>Plin:</b> pago mediante QR personal BBVA</p><p><b>Cuenta de ahorros BBVA:</b> 0011-0814-0295232590-16</p><p><b>CCI:</b> 011-814-000295232590-16</p><p><b>Beneficiario:</b> Pietrik Van Viktor Olortegui Tolentino</p><p><b>Verifica que el nombre del beneficiario coincida antes de confirmar el pago.</b></p></div>`;
+          (sheet || grid).insertAdjacentElement('afterend', payment);
+        }
+      };
+
+      const claimForm = document.getElementById('claimForm');
+      if (claimForm) {
+        const cleanForm = claimForm.cloneNode(false);
+        cleanForm.className = 'claim-card claim-sheet';
+        cleanForm.id = 'claimForm';
+        cleanForm.innerHTML = `
+          <h2>Libro de Reclamaciones</h2>
+          <p class="note"><b>LA PRIMERA</b> · RUC 10257902043</p>
+          <p class="claim-section-title">1. IDENTIFICACIÓN DEL USUARIO O TERCERO LEGITIMADO</p>
+          <div class="form-grid"><input class="input" name="nombre" required placeholder="Nombre o razón social *"><input class="input" name="correo" type="email" required placeholder="Correo electrónico *"><input class="input" name="domicilio" placeholder="Domicilio"><input class="input" name="telefono" required placeholder="Teléfono *"><select class="select" name="documento"><option>DNI</option><option>CE</option><option>Pasaporte</option><option>RUC</option></select><input class="input" name="numeroDocumento" required placeholder="N.º de documento *"></div>
+          <p class="claim-section-title">2. IDENTIFICACIÓN DE QUIEN PRESENTA EL RECLAMO</p>
+          <div class="form-grid"><input class="input" name="representante" placeholder="Nombre o razón social (si corresponde)"><input class="input" name="correoRepresentante" type="email" placeholder="Correo electrónico"><input class="input" name="domicilioRepresentante" placeholder="Domicilio"><input class="input" name="telefonoRepresentante" placeholder="Teléfono"><select class="select" name="documentoRepresentante"><option value="DNI">DNI</option><option value="CE">CE</option><option value="Pasaporte">Pasaporte</option><option value="RUC">RUC</option></select><input class="input" name="numeroDocumentoRepresentante" placeholder="N.º de documento"></div>
+          <p class="claim-section-title">3. DETALLE DEL RECLAMO</p>
+          <div class="form-grid"><select class="select" name="tipo"><option>Reclamo</option><option>Queja</option></select><input class="input" name="pedido" placeholder="Producto o número de pedido"><textarea class="textarea full" name="detalle" rows="6" required placeholder="Detalle del reclamo o queja *"></textarea><textarea class="textarea full" name="solicitud" rows="3" required placeholder="Pedido del consumidor *"></textarea></div>
+          <p class="claim-section-title">4. AUTORIZO LA NOTIFICACIÓN DEL RESULTADO DEL RECLAMO AL CORREO ELECTRÓNICO CONSIGNADO</p>
+          <div class="choice-row"><label class="choice"><input type="radio" name="notificacion" value="Sí" required> Sí</label><label class="choice"><input type="radio" name="notificacion" value="No"> No</label></div>
+          <p class="claim-section-title">5. FIRMA DEL RECLAMANTE (USUARIO, REPRESENTANTE O TERCERO LEGITIMADO)</p>
+          <label class="signature-input full">Sube una imagen de tu firma <input type="file" name="firma" accept="image/png,image/jpeg,image/webp" required></label>
+          <p class="claim-section-title">6. SOLUCIÓN A SU RECLAMO A TRAVÉS DE TRATO DIRECTO</p>
+          <div class="claim-solution"><textarea class="textarea" name="detalleSolucion" placeholder="Detalle de la solución"></textarea><textarea class="textarea" name="firmaReclamante" placeholder="Reclamante"></textarea><textarea class="textarea" name="responsableLibro" placeholder="Responsable del Libro de Reclamaciones"></textarea></div>
+          <button class="btn btn-orange full" type="submit" style="width:100%;margin-top:22px;">Enviar reclamo</button>`;
+        claimForm.replaceWith(cleanForm);
+        cleanForm.addEventListener('submit', event => {
+          event.preventDefault();
+          const data = new FormData(cleanForm);
+          const body = [...data.entries()].map(([key, value]) => `${key}: ${value instanceof File ? `Firma adjunta: ${value.name}` : value}`).join('\n');
+          window.location.href = `mailto:elparkimetro2022@gmail.com?subject=${encodeURIComponent('Libro de Reclamaciones - LA PRIMERA')}&body=${encodeURIComponent(body)}`;
+        });
+      }
+    }());
+  </script>
+</body>
+</html>
