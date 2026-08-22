@@ -475,6 +475,35 @@
       filter: none !important;
       mix-blend-mode: multiply;
     }
+    /* Contador global de visitas + fila de categorías */
+    .categories-with-counter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+    .global-visit-counter {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      white-space: nowrap;
+    }
+    .global-visit-counter img {
+      display: block;
+      height: 28px;
+      width: auto;
+    }
+    .categories-with-counter .rubros-grid {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    @media (max-width: 760px) {
+      .categories-with-counter { gap: 7px; }
+      .global-visit-counter img { height: 24px; }
+    }
+
     /* Las fotos de catálogo ocupan más espacio dentro de cada tarjeta. */
     .product-image { height: 225px; flex-basis: 225px; }
     .product-image img { padding: 2px !important; image-rendering: auto; }
@@ -595,7 +624,12 @@
 
       <section class="rubros-section" aria-label="Rubros del catálogo">
           <div class="container">
-            <div class="rubros-grid" id="categoryGrid">
+            <div class="categories-with-counter">
+              <div class="global-visit-counter" aria-label="Contador de visitas desde la activación">
+                <img src="https://hits.sh/laprimeraimportadores.com/contador-desde-2026-08-21.svg?label=Visitas&color=f58220&labelColor=21150c" alt="Visitas acumuladas al sitio">
+              </div>
+              <div class="rubros-grid" id="categoryGrid">
+              </div>
             </div>
           </div>
       </section>
@@ -735,7 +769,6 @@
         <span>Brokers y Traders Internacionales | Importación, búsqueda de proveedores y productos, logística y asesoría comercial</span>
         <span><b>RUC:</b> 20509897124</span>
         <span><b>Dirección:</b> Calle Puquina 100, Torre 5 Dpto. 605, Res. Los Prados de San Miguel, Lima - Perú</span>
-        <span class="visit-counter"><b>Visitas:</b> <span id="visitCount">Cargando...</span></span>
         <span>© TODOS LOS DERECHOS RESERVADOS</span>
       </div>
       <button class="claims-link" type="button" onclick="showClaims()" aria-label="Abrir Libro de Reclamaciones">
@@ -1118,7 +1151,6 @@
       document.getElementById('cookieBanner').classList.add('active');
     }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js" defer></script>
   <script>
     (function () {
       const whatsapp = '51993346812';
@@ -1184,19 +1216,7 @@
       if (stock) stock.remove();
 
       const footer = document.querySelector('.company-foot');
-      if (footer) footer.innerHTML = `<strong>LA PRIMERA</strong><span>Comercializadores, importadores y distribuidores de artículos de seguridad industrial y sanitarios.</span><span><b>RUC:</b> 10257902043</span><span class="visit-counter"><b>Visitas:</b> <span id="visitCount">Cargando...</span></span><span>© TODOS LOS DERECHOS RESERVADOS</span>`;
-
-      window.addEventListener('load', function () {
-        if (typeof Counter !== 'function') return;
-        const visitCounter = new Counter({ workspace: 'la-primera-tienda-peru-2026' });
-        visitCounter.up('visitas').then(function (result) {
-          const count = document.getElementById('visitCount');
-          if (count) count.textContent = Number(result.value || 0).toLocaleString('es-PE');
-        }).catch(function () {
-          const count = document.getElementById('visitCount');
-          if (count) count.textContent = 'No disponible';
-        });
-      });
+      if (footer) footer.innerHTML = `<strong>LA PRIMERA</strong><span>Comercializadores, importadores y distribuidores de artículos de seguridad industrial y sanitarios.</span><span><b>RUC:</b> 10257902043</span><span>© TODOS LOS DERECHOS RESERVADOS</span>`;
 
       const originalShowDetail = window.showDetail;
       window.showDetail = function (id, keepOption) {
