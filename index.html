@@ -548,6 +548,19 @@
       .variant-option, .btn { min-height: 44px; }
       input, select, textarea { font-size: 16px; }
     }
+
+    /* Políticas de compra y privacidad */
+    .policy-links { display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:10px; }
+    .policy-links button { border:0; padding:0; background:transparent; color:#074f8b; font-weight:850; cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
+    .policy-modal { position:fixed; inset:0; z-index:1200; display:none; place-items:center; padding:20px; background:rgba(6,14,34,.72); }
+    .policy-modal.active { display:grid; }
+    .policy-panel { position:relative; width:min(94vw,900px); max-height:88vh; overflow:auto; background:#fff; border-radius:16px; box-shadow:0 24px 70px rgba(0,0,0,.3); padding:clamp(22px,4vw,38px); }
+    .policy-close { position:sticky; float:right; top:0; width:38px; height:38px; border:0; border-radius:50%; background:#d71920; color:#fff; font-size:1.45rem; cursor:pointer; }
+    .policy-panel h2 { color:#081944; margin:0 46px 18px 0; }
+    .policy-panel h3 { color:var(--orange-900); margin:22px 0 8px; font-size:1.12rem; }
+    .policy-panel p, .policy-panel li { color:#4c4540; line-height:1.58; }
+    .policy-panel ul { padding-left:20px; margin:8px 0 0; }
+    .policy-note { margin-top:18px; padding:12px 14px; border-left:4px solid var(--orange-600); background:#fff7ef; border-radius:6px; }
   </style>
 </head>
 <body>
@@ -762,13 +775,73 @@
     </div>
   </div>
 
+
+  <div class="policy-modal" id="policyModal" role="dialog" aria-modal="true" aria-labelledby="policyTitle" onclick="if(event.target === this) closePolicies()">
+    <article class="policy-panel">
+      <button class="policy-close" type="button" onclick="closePolicies()" aria-label="Cerrar políticas">×</button>
+      <h2 id="policyTitle">Políticas de compra de LA PRIMERA</h2>
+
+      <section id="policyShipping">
+        <h3>1. Pedidos y envíos</h3>
+        <p>El pedido se considera confirmado una vez coordinada la compra y verificado el pago. El cliente debe proporcionar correctamente su nombre, teléfono, dirección de entrega y referencias necesarias para evitar inconvenientes.</p>
+        <p>Para Lima Metropolitana, las entregas se coordinan según disponibilidad y zona. El delivery es libre de costo para compras mayores a <b>S/ 1,700</b>, de acuerdo con las condiciones vigentes informadas por LA PRIMERA. Para otras zonas, el costo de envío puede variar según distancia y modalidad de entrega.</p>
+        <p>Para provincias, los pedidos se envían previa coordinación con el cliente mediante la agencia de transporte acordada. El tiempo de llegada depende del destino y de la empresa de transporte.</p>
+      </section>
+
+      <section id="policyReturns">
+        <h3>2. Cambios y devoluciones</h3>
+        <p>Las solicitudes por defectos de fábrica podrán presentarse dentro de un plazo máximo de <b>7 días calendario</b> contados desde la entrega del producto. El producto deberá conservar sus empaques, accesorios y condiciones originales.</p>
+        <p>No se aceptarán devoluciones por uso inadecuado, manipulación, desgaste normal, golpes, modificaciones o daños ocasionados después de la entrega. En ventas presenciales, el comprador debe revisar la cantidad y el estado de los productos al momento de recibirlos.</p>
+        <p>Para solicitar una evaluación, el cliente deberá comunicarse con LA PRIMERA e indicar el producto, fecha de compra, motivo de la solicitud y adjuntar fotografías o videos que permitan verificar el inconveniente.</p>
+      </section>
+
+      <section id="policyWarranty">
+        <h3>3. Garantía de producto</h3>
+        <p>Los productos comercializados por LA PRIMERA cuentan con garantía frente a defectos de fabricación, de acuerdo con la naturaleza y condiciones del producto. La garantía no cubre daños derivados de instalación incorrecta, mal uso, alteración, mantenimiento inadecuado o causas externas.</p>
+        <p>Cuando corresponda un cambio, devolución o reembolso, este se realizará después de la evaluación del producto y de la documentación presentada por el cliente. Los costos de transporte originalmente pagados no forman parte del valor reembolsable, salvo que corresponda legalmente o que LA PRIMERA indique lo contrario.</p>
+      </section>
+
+      <section id="policyTerms">
+        <h3>4. Términos de compra</h3>
+        <ul>
+          <li>Los precios, disponibilidad, características y promociones pueden cambiar sin previo aviso.</li>
+          <li>Una compra puede quedar sujeta a confirmación de stock antes de su despacho.</li>
+          <li>Las imágenes de los productos son referenciales; pueden existir pequeñas variaciones de presentación, tono o empaque sin afectar la funcionalidad anunciada.</li>
+          <li>LA PRIMERA podrá corregir errores evidentes de publicación, descripción, precio o disponibilidad y comunicará al cliente cualquier cambio que afecte su pedido.</li>
+          <li>El cliente es responsable de proporcionar datos completos y correctos para la compra, facturación y entrega.</li>
+        </ul>
+      </section>
+
+      <section id="policyPrivacy">
+        <h3>5. Privacidad y datos personales</h3>
+        <p>Los datos que el cliente proporciona durante una consulta, compra, envío o reclamo se utilizarán para atender la solicitud, coordinar la entrega, emitir comprobantes, brindar soporte y realizar las comunicaciones relacionadas con la operación.</p>
+        <p>La página puede utilizar cookies y datos técnicos básicos del navegador para mantener funciones del sitio, mejorar la experiencia y conocer el uso general de la web. LA PRIMERA no solicita que el cliente publique información bancaria sensible en formularios abiertos.</p>
+        <p>El cliente puede solicitar la actualización o corrección de sus datos mediante los canales de contacto de LA PRIMERA.</p>
+      </section>
+
+      <section id="policyContact">
+        <h3>6. Contacto</h3>
+        <p><b>LA PRIMERA</b> · RUC 10257902043</p>
+        <p>WhatsApp: <b>993 346 812</b><br>Correo: <b>elparkimetro2022@gmail.com</b></p>
+      </section>
+
+      <p class="policy-note">Estas políticas forman parte de las condiciones de compra publicadas por LA PRIMERA y pueden actualizarse cuando cambien las condiciones comerciales, operativas o legales aplicables.</p>
+    </article>
+  </div>
+
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="company-foot">
-        <strong>Peru Send EIRL</strong>
-        <span>Brokers y Traders Internacionales | Importación, búsqueda de proveedores y productos, logística y asesoría comercial</span>
-        <span><b>RUC:</b> 20509897124</span>
-        <span><b>Dirección:</b> Calle Puquina 100, Torre 5 Dpto. 605, Res. Los Prados de San Miguel, Lima - Perú</span>
+        <strong>LA PRIMERA</strong>
+        <span>Comercializadores, importadores y distribuidores de artículos de seguridad industrial y sanitarios.</span>
+        <span><b>RUC:</b> 10257902043</span>
+        <div class="policy-links" aria-label="Políticas del sitio">
+          <button type="button" onclick="openPolicies('policyShipping')">Políticas de compra y envío</button>
+          <button type="button" onclick="openPolicies('policyReturns')">Cambios y devoluciones</button>
+          <button type="button" onclick="openPolicies('policyWarranty')">Garantía</button>
+          <button type="button" onclick="openPolicies('policyTerms')">Términos y condiciones</button>
+          <button type="button" onclick="openPolicies('policyPrivacy')">Privacidad</button>
+        </div>
         <span>© TODOS LOS DERECHOS RESERVADOS</span>
       </div>
       <button class="claims-link" type="button" onclick="showClaims()" aria-label="Abrir Libro de Reclamaciones">
@@ -779,7 +852,7 @@
   </footer>
 
   <div class="cookie-banner" id="cookieBanner">
-    <p>Usamos cookies para mejorar tu experiencia. Revisa nuestras <a href="https://www.falabella.com.pe/falabella-pe/page/seguridad-y-privacidad" target="_blank" rel="noopener">política de privacidad</a> y de <a href="https://www.falabella.com.pe/falabella-pe/page/politicas-de-cookies" target="_blank" rel="noopener">cookies</a>.</p>
+    <p>Usamos cookies y datos técnicos básicos para el funcionamiento y mejora del sitio. <a href="#" onclick="openPolicies('policyPrivacy'); return false;">Consulta nuestra política de privacidad</a>.</p>
     <button class="btn btn-orange" type="button" onclick="acceptCookies()">Aceptar</button>
   </div>
 
@@ -1215,8 +1288,23 @@
       const stock = document.querySelector('.stock-note');
       if (stock) stock.remove();
 
-      const footer = document.querySelector('.company-foot');
-      if (footer) footer.innerHTML = `<strong>LA PRIMERA</strong><span>Comercializadores, importadores y distribuidores de artículos de seguridad industrial y sanitarios.</span><span><b>RUC:</b> 10257902043</span><span>© TODOS LOS DERECHOS RESERVADOS</span>`;
+
+      window.openPolicies = function(sectionId) {
+        const modal = document.getElementById('policyModal');
+        if (!modal) return;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+          const section = sectionId && document.getElementById(sectionId);
+          if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 30);
+      };
+      window.closePolicies = function() {
+        const modal = document.getElementById('policyModal');
+        if (modal) modal.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') closePolicies(); });
 
       const originalShowDetail = window.showDetail;
       window.showDetail = function (id, keepOption) {
